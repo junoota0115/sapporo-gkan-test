@@ -1,0 +1,66 @@
+<%= jquery do %>
+$('select[name="fiscal_year"]').on("change", function(){
+  var id = $(this).val();
+  if (!id) {
+    id = "-";
+  }
+  var url = "<%= url_for(fiscal_year: "FISCAL_YEAR") %>";
+  var query = "<%= request.query_string %>";
+  url = url.replace("FISCAL_YEAR", id);
+  if (query) {
+    url += "?" + query;
+  }
+
+  location.href = url;
+  return false;
+});
+<% end %>
+
+<div class="index content-main gws-gkan-yearly-table">
+  <div class="list-head">
+    <h2 class="list-head-title">
+      <span class="group"><%= @group.trailing_name %></span>
+      <span class="title"><%= "タイムカード一覧" %></span>
+    </h2>
+    <nav>
+      <%= select_tag :fiscal_year, options_for_select(fiscal_year_options, @fiscal_year), id: nil %>
+    </nav>
+  </div>
+
+  <div class="data-table-wrap wrap-table">
+    <table class="index data-table">
+      <thead>
+        <tr>
+          <th class="name"><%= Gws::User.t :name %></th>
+          <th colspan="<%= months.size %>"><%= "#{@fiscal_year}年度" %></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td class="name"><%= user.long_name %></td>
+            <% months.each do |month| %>
+              <td>
+                <% item = @time_cards[user.id][month] rescue nil %>
+                <% if item %>
+                  <span class="registered">
+                    <%
+                      label = "#{month}#{t("datetime.prompts.month")}"
+                      label = "[承認]" + label if item.workflow_state == "approve"
+                      label = "[申請]" + label if item.workflow_state == "request"
+                    %>
+                    <%= link_to label, { action: :show, id: item } %>
+                  </span>
+                <% else %>
+                  <span class="none" style="color: #999;">
+                    <%= "#{month}#{t("datetime.prompts.month")}" %>
+                  </span>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

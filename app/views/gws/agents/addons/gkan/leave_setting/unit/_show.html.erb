@@ -1,0 +1,36 @@
+<dl class="see">
+  <dt><%= @model.t :leave_unit_ids %></dt>
+  <dd>
+    <table class="index data-table">
+      <thead>
+        <tr>
+          <th><%= Gws::Gkan::LeaveUnit.t :leave_id %></th>
+          <th><%= Gws::Gkan::LeaveUnit.t :effective_count %></th>
+          <th><%= Gws::Gkan::LeaveUnit.t :effective_unit %></th>
+          <th><%= Gws::Gkan::LeaveUnit.t :paid_type %></th>
+          <th style="text-align: center; width: 60px;"></th>
+          <th style="text-align: center; width: 60px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @item.units.present? %>
+          <% @item.units.each do |item| %>
+            <tr>
+              <td><%= item.leave.try(:long_name) %></td>
+              <td><%= item.effective_count %></td>
+              <td><%= item.label :effective_unit %></td>
+              <td><%= item.label :paid_type %></td>
+              <td><%= link_to t("ss.buttons.edit"), edit_gws_gkan_admin_leave_setting_leave_unit_path(leave_setting_id: @item, id: item) %></td>
+              <td><%= link_to t("ss.buttons.delete"), delete_gws_gkan_admin_leave_setting_leave_unit_path(leave_setting_id: @item, id: item) %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="6"><%= t("gws/gkan.views.no_settings") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </dd>
+  <dd><%= link_to t("ss.buttons.add"), new_gws_gkan_admin_leave_setting_leave_unit_path(leave_setting_id: @item), class: "btn" %></dd>
+</dl>

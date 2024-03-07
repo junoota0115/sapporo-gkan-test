@@ -1,0 +1,26 @@
+<%
+  return unless @portlet.time_card_allowed?(:use, @cur_user, site: @cur_site)
+
+  today = Time.zone.now.beginning_of_day
+  today_time_card = @portlet.find_attendance_time_card(@portal, @cur_user, today.beginning_of_month)
+  today_record = today_time_card.records.where(date: today).first if today_time_card
+%>
+<% if today_time_card %>
+<%= jquery do %>
+  var $portlet = new Gws_Gkan_Attendance_Portlet(
+    '.gws-attendance',
+    {
+      ref: <%== request.fullpath.to_json %>,
+      punchUrl: <%== "#{@portlet.punch_path(site: @cur_site, year_month: "#{today.year}#{format('%02d', today.month)}")}/:TYPE".to_json %>,
+      editUrl: <%== @portlet.edit_path(site: @cur_site, year_month: "#{today.year}#{format('%02d', today.month)}", day: format('%02d', today.day), type: ':TYPE', ref: request.fullpath).to_json %>,
+      confirmMessage: <%== t('gws/attendance.confirm.punch').to_json %>,
+      successMessage: <%== t('gws/attendance.notice.punched').to_json %>
+    }
+  );
+<% end %>
+<%= render template: "gws/portal/portlets/gkan_attendance/#{today_time_card.view_type}/_today", locals: {
+  today: today, today_time_card: today_time_card, today_record: today_record }
+%>
+<% else %>
+<%= render template: "gws/portal/portlets/gkan_attendance/errors/_today", locals: { today: today } %>
+<% end %>

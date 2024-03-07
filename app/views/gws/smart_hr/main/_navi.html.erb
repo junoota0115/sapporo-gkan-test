@@ -1,0 +1,8 @@
+<nav class="mod-navi">
+  <h2><%= link_to t("modules.gws/smart_hr"), gws_smart_hr_main_path %></h2>
+  <h3><%= link_to t("modules.gws/smart_hr/groups"), gws_smart_hr_groups_path %></h3>
+  <h3><%= link_to t("modules.gws/smart_hr/users"), gws_smart_hr_users_path %></h3>
+  <h3><%= link_to t("modules.gws/smart_hr/settings"), gws_smart_hr_setting_path %></h3>
+</nav>
+
+<%= render partial: 'gws/main/conf_navi' %>

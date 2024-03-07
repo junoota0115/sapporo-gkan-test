@@ -1,0 +1,17 @@
+<%
+  addon ||= local_assigns.fetch(:addon, {})
+  addon[:display_body] = "hide"
+
+  if @item.new_record? && @item.default_release_plan_enabled?
+    @item.release_date ||= @item.default_release_date
+    @item.close_date ||= @item.default_close_date
+  end
+%>
+
+<dl class="see mod-cms-release_plan">
+  <dt><%= @model.t :release_date %><%= @model.tt :release_date %></dt>
+  <dd><%= f.ss_datetime_field :release_date %></dd>
+
+  <dt><%= @model.t :close_date %><%= @model.tt :close_date %></dt>
+  <dd><%= f.ss_datetime_field :close_date %></dd>
+</dl>

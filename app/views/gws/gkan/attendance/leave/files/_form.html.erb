@@ -1,0 +1,58 @@
+<%
+  @item.load_in_minutes
+
+  today = Time.zone.today
+  @item.in_date ||= today
+  @item.in_start_hour ||= 8
+  @item.in_start_minute ||= 45
+  @item.in_close_hour ||= 17
+  @item.in_close_minute ||= 15
+  @item.in_start_date ||= today
+  @item.in_close_date ||= today
+%>
+<%= jquery do %>
+var $allday = $('.start-end-combo [name="item[allday]"][value="allday"]');
+var toggleDate = function() {
+  if ($allday.prop("checked")){
+    $(".start-end-combo .date-field").removeClass("hide");
+    $(".start-end-combo .datetimes-field").addClass("hide");
+  } else {
+    $(".start-end-combo .datetimes-field").removeClass("hide");
+    $(".start-end-combo .date-field").addClass("hide");
+  }
+};
+$allday.on("change", toggleDate);
+toggleDate();
+<% end %>
+<dl class="see">
+  <dt><%= @model.t :name %><%= @model.tt :name %></dt>
+  <dd><%= f.text_field :name %></dd>
+
+  <dt><%= @model.t :date %><%= @model.tt :date %></dt>
+  <dd>
+    <div class="start-end-combo">
+      <div class="datetimes-field">
+        <%= f.text_field :in_date, class: "date js-date" %>
+        <%= f.select :in_start_hour, @item.in_start_hour_options %>
+        <%= f.select :in_start_minute, @item.in_start_minute_options %>
+        <%= t("ss.wave_dash") %>
+        <%= f.select :in_close_hour, @item.in_close_hour_options %>
+        <%= f.select :in_close_minute, @item.in_close_minute_options %>
+      </div>
+      <div class="date-field hide">
+        <%= f.text_field :in_start_date, class: "date js-date" %>
+        <%= t("ss.wave_dash") %>
+        <%= f.text_field :in_close_date, class: "date js-date" %>
+      </div>
+      <div class="date-options mt-3">
+        <label for="item_allday"><%= f.check_box :allday, {}, "allday", "" %> <%= @item.t :allday %></label>
+      </div>
+    </div>
+  </dd>
+
+  <dt><%= @model.t :leave_unit_id %><%= @model.tt :leave_unit_id %></dt>
+  <dd><%= f.select :leave_unit_id, leave_options %></dd>
+
+  <dt><%= @model.t :body %><%= @model.tt :name %></dt>
+  <dd><%= f.text_area :body %></dd>
+</dl>

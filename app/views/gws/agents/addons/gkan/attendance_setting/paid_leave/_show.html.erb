@@ -1,0 +1,46 @@
+<%
+  paid_leave = @item.paid_leave.index_by_hours
+%>
+<dl class="see">
+  <% t("gws/gkan.options.hour_type").each do |k, v| %>
+    <%
+      items = paid_leave[k.to_s]
+    %>
+    <dt><%= "#{@item.t(:paid_leave)}（#{v}）" %></dt>
+    <dd>
+      <table class="index data-table paid-leave-<%= k %>">
+        <thead>
+          <tr>
+            <th><%= Gws::Gkan::PaidLeave.t :start_date %></th>
+            <th><%= Gws::Gkan::PaidLeave.t :close_date %></th>
+            <th><%= Gws::Gkan::PaidLeave.t :effective_days %></th>
+            <th><%= Gws::Gkan::PaidLeave.t :remark %></th>
+            <th style="text-align: center; width: 60px;"></th>
+            <th style="text-align: center; width: 60px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if items.present? %>
+            <% items.each do |item| %>
+              <tr>
+                <td><%= tryb{ item.start_date.strftime("%Y/%m/%d") } %></td>
+                <td><%= tryb{ item.close_date.strftime("%Y/%m/%d") } %></td>
+                <td><%= item.effective_days %><%= t("datetime.prompts.day") %></td>
+                <td><%= item.remark %></td>
+                <td><%= link_to t("ss.buttons.edit"), edit_gws_gkan_admin_user_attendance_setting_paid_leave_path(attendance_setting_id: @item, id: item) %></td>
+                <td><%= link_to t("ss.buttons.delete"), delete_gws_gkan_admin_user_attendance_setting_paid_leave_path(attendance_setting_id: @item, id: item) %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="6"><%= t("gws/gkan.views.no_settings") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </dd>
+  <% end %>
+
+  <dt></dt>
+  <dd><%= link_to t("ss.buttons.add"), new_gws_gkan_admin_user_attendance_setting_paid_leave_path(attendance_setting_id: @item), class: "btn" %></dd>
+</dl>

@@ -1,0 +1,31 @@
+<nav class="mod-navi current-navi">
+  <h2><%= link_to @cur_site.menu_gkan_attendance_label || t('modules.gws/gkan/attendance'), gws_gkan_attendance_main_path, class: 'icon-affair' %></h2>
+  <h2><%= link_to t('modules.gws/gkan/attendance'), gws_gkan_attendance_main_path %></h2>
+
+  <% if Gws::Gkan::Manage::Attendance.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h2><%= link_to t('modules.gws/gkan/manage/attendance'), gws_gkan_manage_attendance_main_path %></h2>
+  <% end %>
+  <% if Gws::Gkan::Manage::Work.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h2><%= link_to t('modules.gws/gkan/manage/work'), gws_gkan_manage_work_main_path, class: 'open' %></h2>
+  <% end %>
+
+  <h2><%= link_to t('modules.gws/gkan/manage/payment'), gws_gkan_manage_payment_main_path %></h2>
+  <h3><%= link_to t('modules.gws/gkan/manage/payment/internal'), gws_gkan_manage_payment_internal_main_path %></h3>
+  <ul class="narrow-page">
+    <li><%= link_to t('modules.gws/gkan/manage/payment/internal/overtime'), gws_gkan_manage_payment_internal_overtime_path %></li>
+    <li><%= link_to t('modules.gws/gkan/manage/payment/internal/parttime'), gws_gkan_manage_payment_internal_parttime_path %></li>
+  </ul>
+  <h3><%= link_to  t('modules.gws/gkan/manage/payment/external'), gws_gkan_manage_payment_external_main_path %></h3>
+  <ul class="narrow-page">
+    <li><%= link_to t('modules.gws/gkan/manage/payment/external/regular21g'), gws_gkan_manage_payment_external_regular21g_path %></li>
+    <li><%= link_to t('modules.gws/gkan/manage/payment/external/regular13g'), gws_gkan_manage_payment_external_regular13g_path %></li>
+    <li><%= link_to t('modules.gws/gkan/manage/payment/external/parttime'), gws_gkan_manage_payment_external_parttime_path %></li>
+  </ul>
+  <h3><%= link_to t('modules.gws/gkan/manage/payment/audit'), gws_gkan_manage_payment_audit_path %></h3>
+
+  <% if Gws::Gkan::Admin.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h2><%= link_to t('modules.gws/gkan/admin'),  gws_gkan_admin_main_path %></h2>
+  <% end %>
+</nav>
+
+<%= render partial: 'gws/main/navi' %>

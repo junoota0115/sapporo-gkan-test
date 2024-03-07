@@ -1,0 +1,11 @@
+<% value ||= nil %>
+<%= render 'gws/agents/columns/main/common_label', column: column %>
+<dd>
+  <span class="prefix"><%= column.prefix_label %></span>
+  <% if column.input_type == "datetime" %>
+    <%= ss_datetime_field_tag("#{object_name}[#{column.id}]", value.try(:date), {}, column.form_options) %>
+  <% else %>
+    <%= ss_date_field_tag("#{object_name}[#{column.id}]", value.try(:date), {}, column.form_options) %>
+  <% end %>
+  <span class="postfix"><%= column.postfix_label %></span>
+</dd>

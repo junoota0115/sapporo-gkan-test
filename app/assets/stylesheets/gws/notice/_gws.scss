@@ -1,0 +1,16 @@
+// list
+.gws-notices {
+  .unread {
+    background-color: #f9e9e3;
+    &:hover {
+      background: $orange2;
+    }
+  }
+}
+
+// calendar
+.gws-notice-calendar {
+  .fc-content .fc-date {
+    display: none;
+  }
+}

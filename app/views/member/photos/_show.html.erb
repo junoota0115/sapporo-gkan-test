@@ -1,0 +1,26 @@
+<dl class="see">
+  <dt><%= @model.t :name %></dt>
+  <dd><%= @item.name %></dd>
+
+  <dt><%= @model.t :basename %></dt>
+  <dd><%= @item.send :basename %></dd>
+  <dd><%= @item.public? ? link_to(@item.full_url, @item.full_url, target: "_blank", rel: "noopener") : @item.full_url %></dd>
+  <dd><div class="cms-preview-links"><%= safe_join cms_preview_links(@item), '|' %></div></dd>
+
+  <% if @item.layout %>
+  <dt><%= @model.t :layout_id %></dt>
+  <dd><%= link_to_layout(@item.layout) %></dd>
+  <% end %>
+
+  <dt><%= @model.t :state %></dt>
+  <dd><%= @item.label :state %></dd>
+
+  <dt><%= @model.t :listable_state %></dt>
+  <dd><%= @item.label :listable_state %></dd>
+
+  <dt><%= @model.t :slideable_state %></dt>
+  <dd><%= @item.label :slideable_state %></dd>
+
+  <dt><%= @model.t :slide_order %></dt>
+  <dd><%= @item.slide_order %></dd>
+</dl>

@@ -1,0 +1,60 @@
+<nav class="mod-navi current-navi sub-features">
+  <h2><%= link_to @cur_site.menu_gkan_attendance_label || t('modules.gws/gkan'), gws_gkan_main_path, class: 'icon-affair' %></h2>
+  <h2 class="open"><%= link_to t('modules.gws/gkan/attendance'), gws_gkan_attendance_main_path, class: 'open' %></h2>
+  <h3><%= link_to t('modules.gws/gkan/attendance/time_card'), gws_gkan_attendance_time_card_main_path, class: 'readable' %></h3>
+
+  <% if Gws::Gkan::Attendance::OvertimeFile.allowed?(:read, @cur_user, site: @cur_site) %>
+    <h3><%= link_to t('modules.gws/gkan/attendance/overtime'), gws_gkan_attendance_overtime_main_path, class: 'readable' %></h3>
+    <ul class="narrow-page">
+      <li><%= link_to  t('modules.gws/gkan/attendance/overtime/files/mine'), gws_gkan_attendance_overtime_files_path(state: "mine") %></li>
+      <li><%= link_to  t('modules.gws/gkan/attendance/overtime/files/approve'), gws_gkan_attendance_overtime_files_path(state: "approve") %></li>
+      <li><%= link_to  t('modules.gws/gkan/attendance/overtime/files/all'), gws_gkan_attendance_overtime_files_path(state: "all") %></li>
+    </ul>
+  <% end %>
+  <% if Gws::Gkan::Attendance::HolidayWorkFile.allowed?(:read, @cur_user, site: @cur_site) %>
+    <h3><%= link_to t('modules.gws/gkan/attendance/holiday_work'), gws_gkan_attendance_holiday_work_main_path, class: 'readable' %></h3>
+    <ul class="narrow-page">
+      <li><%= link_to  t('modules.gws/gkan/attendance/holiday_work/files/mine'), gws_gkan_attendance_holiday_work_files_path(state: "mine") %></li>
+      <li><%= link_to  t('modules.gws/gkan/attendance/holiday_work/files/approve'), gws_gkan_attendance_holiday_work_files_path(state: "approve") %></li>
+      <li><%= link_to  t('modules.gws/gkan/attendance/holiday_work/files/all'), gws_gkan_attendance_holiday_work_files_path(state: "all") %></li>
+    </ul>
+  <% end %>
+  <% if Gws::Gkan::Attendance::LeaveFile.allowed?(:read, @cur_user, site: @cur_site) %>
+    <h3><%= link_to t('modules.gws/gkan/attendance/leave'), gws_gkan_attendance_leave_main_path, class: 'readable' %></h3>
+    <ul class="narrow-page">
+      <li><%= link_to  t('modules.gws/gkan/attendance/leave/files/mine'), gws_gkan_attendance_leave_files_path(state: "mine") %></li>
+      <li><%= link_to  t('modules.gws/gkan/attendance/leave/files/approve'), gws_gkan_attendance_leave_files_path(state: "approve") %></li>
+      <li><%= link_to  t('modules.gws/gkan/attendance/leave/files/all'), gws_gkan_attendance_leave_files_path(state: "all") %></li>
+    </ul>
+  <% end %>
+  <% if Gws::Gkan::Attendance::Work.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h3><%= link_to t('modules.gws/gkan/attendance/work'), gws_gkan_attendance_work_main_path, class: 'readable' %></h3>
+    <ul class="narrow-page">
+      <li><%= link_to  t('modules.gws/gkan/attendance/work/work_days'), gws_gkan_attendance_work_work_days_path %></li>
+      <li><%= link_to  t('modules.gws/gkan/attendance/work/leave_left'), gws_gkan_attendance_work_leave_left_path %></li>
+      <li><%= link_to  t('modules.gws/gkan/attendance/work/leave_taken'), gws_gkan_attendance_work_leave_taken_path %></li>
+    </ul>
+  <% end %>
+  <% if Gws::Gkan::Workflow::Route.allowed?(:edit, @cur_user, site: @cur_site) %>
+    <h3><%= link_to t('modules.gws/gkan/workflow/route'), gws_gkan_workflow_routes_path, class: 'management' %></h3>
+  <% end %>
+  <% if Gws::Gkan::Attendance::Location.allowed?(:edit, @cur_user, site: @cur_site) %>
+    <h3><%= link_to t('modules.gws/gkan/attendance/location'), gws_gkan_attendance_locations_path, class: 'management' %></h3>
+  <% end %>
+  <h3><%= link_to t('modules.gws/gkan/attendance/setting'), gws_gkan_attendance_setting_path, class: 'management' %></h3>
+
+  <% if Gws::Gkan::Manage::Attendance.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h2><%= link_to t('modules.gws/gkan/manage/attendance'), gws_gkan_manage_attendance_main_path %></h2>
+  <% end %>
+  <% if Gws::Gkan::Manage::Work.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h2><%= link_to t('modules.gws/gkan/manage/work'), gws_gkan_manage_work_main_path %></h2>
+  <% end %>
+  <% if Gws::Gkan::Manage::Payment.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h2><%= link_to t('modules.gws/gkan/manage/payment'), gws_gkan_manage_payment_main_path %></h2>
+  <% end %>
+  <% if Gws::Gkan::Admin.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h2><%= link_to t('modules.gws/gkan/admin'),  gws_gkan_admin_main_path %></h2>
+  <% end %>
+</nav>
+
+<%= render partial: 'gws/main/navi' %>

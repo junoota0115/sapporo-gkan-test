@@ -1,0 +1,11 @@
+<%
+  current = ::File.basename(params[:controller])
+%>
+<div class="gws-schedule-tabs">
+  <%= link_to gws_gkan_manage_payment_internal_overtime_path, { class: ((current == "overtime") ? "current" : "") } do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/manage/payment/internal/overtime') %></span>
+  <% end %>
+  <%= link_to gws_gkan_manage_payment_internal_parttime_path, { class: ((current == "parttime") ? "current" : "") } do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/manage/payment/internal/parttime') %></span>
+  <% end %>
+</div>

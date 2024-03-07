@@ -1,0 +1,55 @@
+<div class="gws-attendance">
+  <%= render partial: "gws/gkan/manage/attendance/work_records/main/tabs" %>
+
+  <%= form_for :item, url: { action: :index }, html: { method: :post, id: "item-form" } do |f| %>
+    <%= error_messages_for :item %>
+
+    <section class="main-box">
+      <header><h2><%= t("gws/gkan.views.download_work_records") %></h2></header>
+
+      <div class="main-body">
+        <dl class="see">
+          <dt><%= @model.t :term %><%= @model.tt :term %></dt>
+          <dd>
+            <%= f.text_field :start, class: "date js-date" %>
+            <%= "-" %>
+            <%= f.text_field :close, class: "date js-date" %>
+          </dd>
+        </dl>
+
+        <dl class="see select-users" style="margin-top: 20px;">
+          <dt><%= @model.t :user_id %><%= @model.tt :user_id %></dt>
+          <dd>
+            <%= f.hidden_field "user_id[]", value: "", id: nil, class: "hidden-ids" %>
+            <%= link_to t("ss.apis.users.index"), gws_apis_users_path(single: 1), class: "select-users btn ajax-box" %>
+          </dd>
+          <dd>
+            <table class="index ajax-selected">
+              <thead><tr><th class="name"><%= Gws::User.t :name %></th><th class="deselect"></th></tr></thead>
+              <tbody>
+                <% user = @item.user %>
+                <% if user %>
+                  <tr data-id="<%= user.id %>">
+                    <td><%= f.hidden_field "user_ids[]", value: user.id, id: nil %> <%= user.name %></td>
+                    <td><%= link_to t("ss.buttons.delete"), "#", class: "deselect btn" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="main-box">
+      <div class="main-body">
+        <%= render template: '_download', locals: {f: f} %>
+
+        <footer class="send">
+          <%= f.submit t("ss.buttons.download"), class: :save %>
+          <%= f.button t("ss.buttons.reset"), class: "btn-default", type: :reset, onclick: "location.href='#{url_for(action: :index)}'; return false;" %>
+        </footer>
+      </div>
+    </section>
+  <% end %>
+</div>

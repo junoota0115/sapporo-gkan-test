@@ -1,0 +1,18 @@
+<div class="main-box">
+  <table class="see index history-backup">
+    <tr>
+      <th></th>
+      <th colspan="2"><%= I18n.t('history.before_state') %></th>
+      <th colspan="2"><%= I18n.t('history.current_state') %></th>
+    </tr>
+    <% diff = @item.data.merge(@data).sort %>
+    <% diff.each do |k, v| %>
+      <%
+        item = History::Cms::Diff.init(@item.model, k, @item.data[k], @data[k])
+        next if item.ignore_field?
+        next if !item.diff_exists?
+      %>
+      <%= item.diff_html %>
+    <% end %>
+  </table>
+</div>

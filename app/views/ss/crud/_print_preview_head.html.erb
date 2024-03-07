@@ -1,0 +1,20 @@
+<% links ||= [] %>
+<% paper_width = @portrait == "horizontal" ? "310mm" : "220mm" %>
+<div class="no-print" style="position: relative; width: <%= paper_width %>;">
+  <% if links.present? %>
+    <% links.each do |name, url| %>
+      <%= link_to name, url %>
+    <% end %>
+  <% end %>
+
+  <span style="position: absolute; right: 8px;">
+    <span id="fontsize">
+      <%= t("ss.text_zoom") %>
+      <span id="ss-small"><%= t("ss.options.text_zoom.smaller") %></span>
+      <span id="ss-medium"><%= t("ss.options.text_zoom.reset") %></span>
+      <span id="ss-large"><%= t("ss.options.text_zoom.larger") %></span>
+    </span>
+    |
+    <%= link_to t('ss.links.print'), '#', { id: 'print-to-printer', onclick: "window.print(); return false;" } %>
+  </span>
+</div>

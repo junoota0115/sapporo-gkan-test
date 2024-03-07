@@ -1,0 +1,34 @@
+<% controller.javascript "colorbox" %>
+<% controller.stylesheet "colorbox" %>
+<%
+  search_path = @node.url
+%>
+
+<div class="hide" style="display: none;">
+  <div class="colorbox-dialog-part-<%= @cur_part.id %>">
+    <%= render("member/agents/nodes/photo_search/modal", search_path: search_path) %>
+  </div>
+</div>
+
+<%= jquery do %>
+var $dialog = $(".colorbox-dialog-part-<%= @cur_part.id %>");
+$(".member-photo-search-part .ajax-box").on("click", function () {
+  $.colorbox({
+    inline: true,
+    href: $dialog,
+    maxWidth: "80%",
+    maxHeight: "80%"
+  });
+  return false;
+});
+<% end %>
+
+<div class="member-photo-search-part">
+  <%= form_tag search_path, multipart: true, method: "get" do %>
+  <div class="keyword">
+    <%= text_field_tag :keyword, nil, class: "keyword" %>
+    <%= submit_tag t("ss.buttons.search") %>
+  </div>
+  <% end %>
+  <%= link_to t("member.buttons.detail_search"), "#", class: "ajax-box" %>
+</div>

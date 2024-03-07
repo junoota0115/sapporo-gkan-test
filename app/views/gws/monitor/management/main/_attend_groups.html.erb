@@ -1,0 +1,29 @@
+<article class="topic">
+  <header>
+    <h2><%= I18n.t('gws/monitor.topic.browsing_state') %></h2>
+  </header>
+
+  <div class="toggle-body">
+    <div class="body">
+      <table class="index">
+        <thead>
+        <tr>
+          <th class="state"><%= I18n.t('gws/monitor.topic.type') %></th>
+          <th class="mark_at"><%= I18n.t('gws/monitor.topic.mark_at') %></th>
+          <th class="udpate_at"><%= I18n.t('gws/monitor.topic.update_at') %></th>
+          <th class="group"><%= I18n.t('gws/monitor.topic.group') %></th>
+          <th class="user"><%= I18n.t('gws/monitor.topic.user') %></th>
+          <th class="contents"><%= I18n.t('gws/monitor.topic.contents') %></th>
+          <th class="file"><%= I18n.t('gws/monitor.topic.file') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% attend_groups = @item.attend_groups.to_a %>
+        <% attend_groups.each do |group| %>
+          <%= render "gws/monitor/main/attend_group_tr", group: group %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</article>

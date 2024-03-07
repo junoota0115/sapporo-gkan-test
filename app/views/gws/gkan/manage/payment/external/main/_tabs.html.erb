@@ -1,0 +1,14 @@
+<%
+  current = ::File.basename(params[:controller])
+%>
+<div class="gws-schedule-tabs">
+  <%= link_to gws_gkan_manage_payment_external_regular21g_path, { class: ((current == "regular21g") ? "current" : "") } do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/manage/payment/external/regular21g') %></span>
+  <% end %>
+  <%= link_to gws_gkan_manage_payment_external_regular13g_path, { class: ((current == "regular13g") ? "current" : "") } do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/manage/payment/external/regular13g') %></span>
+  <% end %>
+  <%= link_to gws_gkan_manage_payment_external_parttime_path, { class: ((current == "parttime") ? "current" : "") } do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/manage/payment/external/parttime') %></span>
+  <% end %>
+</div>

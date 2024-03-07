@@ -1,0 +1,26 @@
+<%= javascript_include_tag "colorbox", defer: true %>
+<%= stylesheet_link_tag "colorbox", media: 'all' %>
+
+<div class="map-search-index">
+  <%
+    opts = {
+      markers: @markers,
+      site: @cur_site,
+      preview: @preview,
+      map: @cur_node.map_options,
+      markerCluster: (@cur_node.map_cluster_enabled? ? true : false)
+    }
+  %>
+  <%= render_facility_search_map "#map-canvas", opts %>
+  <%= render "upper" %>
+
+  <%
+    map_html = @cur_node.map_html.presence || @cur_node.default_map_html
+    map_html = map_html.gsub(/\{\{ ?(.*?) ?\}\}/) do |m|
+      defined = /(sidebar|canvas|filters)/.match?($1)
+      defined ? render(template: "_#{$1}", locals: { current: "map" }) : m
+    end
+  %>
+
+  <%= raw map_html %>
+</div>

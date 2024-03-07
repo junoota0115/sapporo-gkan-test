@@ -1,0 +1,30 @@
+<div class="index">
+  <div class="list-head">
+  </div>
+  <div class="data-table-wrap wrap-table">
+    <table class="index data-table">
+      <thead>
+        <tr>
+          <th rowspan="2"><%= "ユーザーID" %></th>
+          <th rowspan="2"><%= "氏名" %></th>
+          <th rowspan="2"><%= "乖離発生日" %></th>
+          <th colspan="2"><%= "出勤乖離" %></th>
+          <th colspan="2"><%= "打刻乖離" %></th>
+          <th rowspan="2"><%= "乖離理由" %></th>
+        </tr>
+        <tr>
+          <th><%= "出勤予定" %></th>
+          <th><%= "出勤打刻" %></th>
+          <th><%= "退勤予定" %></th>
+          <th><%= "退勤打刻" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each do |setting| %>
+          <tr>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

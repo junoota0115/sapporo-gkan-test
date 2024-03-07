@@ -1,0 +1,21 @@
+<dl class="see">
+  <dt><%= @model.t :leave_id %><%= @model.tt :leave_id %></dt>
+  <dd><%= f.select :leave_id, leave_options %></dd>
+
+  <dt><%= @model.t :effective_count %><%= @model.tt :effective_count %></dt>
+  <dd><%= f.number_field :effective_count %></dd>
+
+  <dt><%= @model.t :effective_unit %><%= @model.tt :effective_unit %></dt>
+  <dd><%= f.select :effective_unit, @item.effective_unit_options %></dd>
+
+  <dt><%= @model.t :paid_type %><%= @model.tt :paid_type %></dt>
+  <dd><%= f.select :paid_type, @item.paid_type_options, include_blank: true %></dd>
+
+  <dt><%= @model.t :order %><%= @model.tt :order %></dt>
+  <dd><%= f.number_field :order %></dd>
+</dl>
+
+<% @crud_buttons = proc do |f| %>
+  <%= f.submit t("ss.buttons.save"), class: 'btn-primary save', data: { disable_with: t("ss.buttons.saving") } %>
+  <%= f.button t("ss.buttons.cancel"), class: 'btn-default', type: :reset, onclick: "location.href='#{crud_redirect_url}'; return false;" %>
+<% end %>

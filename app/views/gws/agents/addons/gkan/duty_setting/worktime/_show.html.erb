@@ -1,0 +1,32 @@
+<dl class="see">
+  <dt><%= @model.t :worktime_day_minute %></dt>
+  <dd><%= format_minutes(@item.worktime_day_minute) %></dd>
+
+  <dt><%= @model.t :worktime_week_minute %></dt>
+  <dd><%= format_minutes(@item.worktime_week_minute) %></dd>
+
+  <dt><%= @model.t :worktime %></dt>
+  <% if @item.worktime_variable? %>
+    <dd><%= t("gws/gkan.links.set_worktime_of_wday") %></dd>
+    <% (0..6).each do |wday| %>
+      <dt class="depth-2"><%= t("date.day_names")[wday] %></dt>
+      <dd class="depth-2">
+        <%
+          start_at_hour = @item.send("start_at_hour_#{wday}")
+          start_at_minute = @item.send("start_at_minute_#{wday}")
+          close_at_hour = @item.send("close_at_hour_#{wday}")
+          close_at_minute = @item.send("close_at_minute_#{wday}")
+        %>
+        <%= "#{start_at_hour}:#{format("%02d", @item.start_at_minute)}" %>
+        <%= t("ss.wave_dash") %>
+        <%= "#{close_at_hour}:#{format("%02d", @item.close_at_minute)}" %>
+      </dd>
+    <% end %>
+  <% else %>
+    <dd>
+      <%= "#{@item.start_at_hour}:#{format("%02d", @item.start_at_minute)}" %>
+      <%= t("ss.wave_dash") %>
+      <%= "#{@item.close_at_hour}:#{format("%02d", @item.close_at_minute)}" %>
+    </dd>
+  <% end %>
+</dl>

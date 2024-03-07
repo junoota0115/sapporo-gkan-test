@@ -1,0 +1,41 @@
+<%
+  def current?(item)
+    item.id == @attendance.try(:id)
+  end
+%>
+<div class="index content-main gws-gkan-yearly-table">
+  <div class="list-head">
+    <h2 class="list-head-title">
+      <%= @user.long_name %>
+      <%= "出勤簿設定" %>
+    </h2>
+  </div>
+
+  <div class="data-table-wrap wrap-table">
+    <table class="index data-table">
+      <thead>
+        <tr>
+          <th style="width: 80px;"><%= "状態" %></th>
+          <th class="name"><%= "名称" %></th>
+          <th class="name"><%= "雇用区分" %></th>
+          <th class="name"><%= "休暇区分" %></th>
+          <th style="width: 80px;"><%= "雇用開始" %></th>
+          <th style="width: 80px;"><%= "雇用終了" %></th>
+          <th style="width: 140px;"><%=  @model.t :updated %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each do |item| %>
+          <tr <%== current?(item) ? 'style="background: #fff5ce"' : '' %>>
+            <td style="text-align: center;"><%= "有効" if current?(item) %></td>
+            <td class="name"><%= link_to item.name, { action: :show, id: item } %></td>
+            <td><%= item.duty_setting.try(:long_name) %></td>
+            <td><%= item.leave_setting.try(:name) %></td>
+            <td style="text-align: center;"><%= tryb{ l(item.start_date.to_date) } %></td>
+            <td style="text-align: center;"><%= tryb{ l(item.close_date.to_date) } %></td>
+            <td style="text-align: center;"><%= ss_time_tag(item.updated) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

@@ -1,0 +1,16 @@
+<%
+  return if !@cur_site.menu_bookmark_visible?
+  return if !Gws::Bookmark::Item.allowed?(:read, @cur_user, site: @cur_site)
+
+  @bookmark_default_name = window_name
+  @bookmark_url = request.fullpath
+  @bookmark_model = Gws::Bookmark::Item.detect_model((@model ? @model.name.underscore :  ""), @bookmark_url)
+
+  @bookmark = @cur_user.find_bookmark(@cur_site, @bookmark_url)
+  @bookmark_folders = @cur_user.bookmark_folders(@cur_site) if @bookmark
+%>
+<% if @bookmark %>
+  <%= render template: "gws/bookmark/apis/items/update" %>
+<% else %>
+  <%= render template: "gws/bookmark/apis/items/create" %>
+<% end %>

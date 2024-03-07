@@ -1,0 +1,45 @@
+<%
+  addon ||= local_assigns.fetch(:addon, {})
+
+  if @item.try(:loop_format) == "liquid"
+    addon[:class] = "hide"
+  end
+%>
+<%= code_editor "##{addon[:id]} .html", delay_loads: "##{addon[:id]}", mode: :html %>
+
+<dl class="see mod-cms-child_list">
+  <dt><%= @model.tt :child_list %></dt>
+  <dd></dd>
+
+  <dt><%= @model.t :child_limit %><%= @model.tt :child_limit %></dt>
+  <dd><%= f.number_field :child_limit %></dd>
+
+  <dt><%= @model.t :child_upper_html %><%= @model.tt :child_upper_html %></dt>
+  <dd><%= f.text_area :child_upper_html, class: :html %></dd>
+
+  <dt><%= @model.t :child_loop_html %><%= @model.tt :child_loop_html %></dt>
+  <dd><%= f.text_area :child_loop_html, class: :html, style: "height: 100px;" %></dd>
+
+  <dt><%= @model.t :child_lower_html %><%= @model.tt :child_lower_html %></dt>
+  <dd><%= f.text_area :child_lower_html, class: :html %></dd>
+</dl>
+
+<%= jquery do %>
+  var $addon = $("<%= "##{addon[:id]}" %>");
+  var $loopFormatSelect = $("select[name='item[loop_format]']");
+  if ($loopFormatSelect.length) {
+    var changeLoopFormat = function() {
+      var format = $loopFormatSelect.val();
+      if (format === "liquid") {
+        $addon.addClass("hide");
+        $addon.trigger('ss:addonHidden');
+      } else {
+        $addon.removeClass("hide");
+        $addon.trigger('ss:addonShown');
+      }
+    };
+
+    changeLoopFormat();
+    $loopFormatSelect.on("change", changeLoopFormat);
+  }
+<% end %>

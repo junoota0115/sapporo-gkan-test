@@ -1,0 +1,38 @@
+<%= jquery do %>
+SS_TreeUI.render(".index.topics", { descendants_check: true });
+<% end %>
+
+<div class="main-box">
+  <table class="index topics">
+    <thead>
+      <tr>
+        <th><%= @model.t :name %></th>
+        <th class="datetime"><%= @model.t :updated %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @items.each do |topic| %>
+        <tr data-depth="1">
+          <td class="expandable">
+            <%= link_to topic.name, action: :show, id: topic %>
+          </td>
+          <td><%= ss_time_tag(topic.updated) %></td>
+          <td><%= link_to t('ss.links.reply'), { action: :new_reply, id: topic }, class: :btn %></td>
+        </tr>
+        <% topic.children.order(descendants_updated: -1).each do |comment| %>
+          <tr data-depth="2">
+            <td class="expandable">
+              <%= link_to comment.name, action: :show, id: comment %>
+            </td>
+            <td><%= ss_time_tag(comment.updated) %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @items if @items.try(:current_page) %>

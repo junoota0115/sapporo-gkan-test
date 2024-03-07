@@ -1,0 +1,25 @@
+<div class="gws-attendance">
+  <%= render partial: "gws/gkan/manage/attendance/work_records/main/tabs" %>
+
+  <%= form_for :item, url: { action: :index }, html: { method: :post, id: "item-form" } do |f| %>
+    <%= error_messages_for :item %>
+
+    <section class="main-box">
+      <header><h2><%= t("gws/gkan.views.import_work_records") %></h2></header>
+
+      <div class="main-body">
+        <dl class="see">
+          <dt><%= t "ss.file" %></dt>
+          <dd>
+            <%= f.hidden_field "item[in_file]", value: "" %>
+            <%= f.file_field :in_file %>
+          </dd>
+        </dl>
+      </div>
+    </section>
+
+    <footer class="send">
+      <%= f.submit t("ss.buttons.import"), class: :save, data: { confirm: t("ss.confirm.import"), disable_with: t("ss.buttons.importing") } %>
+    </footer>
+  <% end %>
+</div>

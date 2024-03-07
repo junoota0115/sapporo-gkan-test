@@ -1,0 +1,58 @@
+<%= jquery do %>
+$('select[name="fiscal_year"]').on("change", function(){
+  var id = $(this).val();
+  if (!id) {
+    id = "-";
+  }
+  var url = "<%= url_for(fiscal_year: "FISCAL_YEAR") %>";
+  var query = "<%= request.query_string %>";
+  url = url.replace("FISCAL_YEAR", id);
+  if (query) {
+    url += "?" + query;
+  }
+
+  location.href = url;
+  return false;
+});
+<% end %>
+
+<div class="gws-attendance">
+  <%= render partial: "gws/gkan/manage/work/main/tabs" %>
+
+  <section class="main-box">
+    <div class="main-body">
+      <%= form_for :item, url: { action: :index }, html: { id: "item-form", method: :get } do |f| %>
+        <dl class="see">
+          <dt><%= @model.t :group_id %><%= @model.tt :group_id %></dt>
+          <dd>
+            <%= f.hidden_field "group_id", value: "", id: nil, class: "hidden-ids" %>
+            <%= link_to t("ss.apis.groups.index"), gws_apis_groups_path(single: 1), class: "btn ajax-box" %>
+          </dd>
+          <dd>
+            <table class="index ajax-selected">
+              <thead><tr><th class="name"><%= Gws::Group.t :name %></th><th class="deselect"></th></tr></thead>
+              <tbody>
+                <% group = @item.group %>
+                <% if group %>
+                  <tr data-id="<%= group.id %>">
+                    <td><%= f.hidden_field "group_id", value: group.id, id: nil %> <%= group.name %></td>
+                    <td><%= link_to t("ss.buttons.delete"), "#", class: "deselect btn" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </dd>
+        </dl>
+
+        <footer class="send">
+          <%= f.submit t("ss.buttons.search"), class: :save %>
+          <%= f.button t("ss.buttons.reset"), class: "btn-default", type: :reset, onclick: "location.href='#{url_for(action: :index, fiscal_year: "-")}'; return false;" %>
+        </footer>
+      <% end %>
+    </div>
+  </section>
+</div>
+
+<% if @items %>
+  <%= render template: "result" %>
+<% end %>

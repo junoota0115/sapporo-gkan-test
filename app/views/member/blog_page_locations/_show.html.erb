@@ -1,0 +1,10 @@
+<dl class="see">
+  <dt><%= @model.t :name %></dt>
+  <dd><%= @item.name %></dd>
+
+  <dt><%= @model.t :state %></dt>
+  <dd><%= @item.label :state %></dd>
+
+  <dt><%= @model.t :layout_id %></dt>
+  <dd><%= link_to @item.layout.try(:name), cms_layout_path(id: @item.layout_id) %></dd>
+</dl>

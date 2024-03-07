@@ -1,0 +1,17 @@
+<%
+  options = {}
+  options[:fiscal_year] = @fiscal_year if @fiscal_year
+  options[:item] = { group_id: @group.id } if @group
+  current = ::File.basename(params[:controller])
+%>
+<div class="gws-schedule-tabs">
+  <%= link_to gws_gkan_manage_work_work_days_path(options), { class: ((current == "work_days") ? "current" : "") } do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/manage/work/work_days') %></span>
+  <% end %>
+  <%= link_to gws_gkan_manage_work_work_times_path(options), { class: ((current == "work_times") ? "current" : "") } do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/manage/work/work_times') %></span>
+  <% end %>
+  <%= link_to gws_gkan_manage_work_work_limits_path(options), { class: ((current == "work_limits") ? "current" : "") } do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/manage/work/work_limits') %></span>
+  <% end %>
+</div>

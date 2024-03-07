@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="<%= I18n.locale %>">
+
+<head>
+<meta charset="UTF-8" />
+<title><%= @window_name %></title>
+<%= stylesheet_link_tag "cms/public", media: "all" %>
+<%= stylesheet_link_tag "jplayer", media: "all" %>
+<%= javascript_include_tag "cms/compat" %>
+<%= javascript_include_tag "cms/public" %>
+<%= javascript_include_tag "jplayer" %>
+<% controller.stylesheets.each do |path| %>
+  <%= stylesheet_link_tag path, media: "all" %>
+<% end %>
+<% controller.javascripts.each do |path, options| %>
+  <%= javascript_include_tag path, options || {} %>
+<% end %>
+<%= javascript_tag do %>
+  SS.config = <%= raw controller.javascript_configs.to_json %>;
+<% end %>
+<%== render_layout_parts(@cur_layout.head, previewable: false) %>
+<%= render "layouts/cms/opengraph" %>
+<%= render "layouts/cms/twitter_card" %>
+<%= csrf_meta_tags if @csrf_token != false %>
+</head>
+
+<%= yield %>
+
+</html>

@@ -1,0 +1,26 @@
+<% return if controller.filter_include?(:preview) %>
+<% if @app.present? %>
+<%= jquery do %>
+var add;
+add = <%= @add %>;
+if (add === true) {
+  $.ajax({
+    url: "<%= @app.executed_add_url %>",
+    data: {
+      authenticity_token: "<%= form_authenticity_token %>"
+    },
+    type: "POST",
+    success: function (data) {
+      var $executed = $("#executed");
+      $executed.html(data);
+      Opendata_Point.executedLoaded = true;
+      $executed.trigger("opendata:executedLoaded");
+    }
+  });
+}
+<% end %>
+
+  <% if @add == false %>
+    <%= @app.executed.to_i %> <%= I18n.t("opendata.labels.time") %>
+  <% end %>
+<% end %>

@@ -1,0 +1,35 @@
+<%= form_for :item, url: { action: :test_deliver }, html: { id: "item-form", method: :post, multipart: true, autocomplete: :off } do |f| %>
+  <%= error_messages_for :item %>
+
+  <section class="main-box">
+    <header><h2><%= t("ss.test_deliver") %></h2></header>
+    <div class="main-body">
+      <div style="font-weight: bold; padding: 5px 0px 10px 0px;">
+        <%=br t("ss.views.line.test_deliver").join("\n") %>
+      </div>
+
+      <dl class="see">
+        <dt><%= @model.t :name %></dt>
+        <dd><%= @item.name %></dd>
+
+        <dt><%= t("ss.target") %></dt>
+        <dd>
+          <%= f.hidden_field "item[test_member_ids]", value: "", id: nil %>
+          <% @test_members.each do |member| %>
+            <label>
+              <%= check_box_tag 'item[test_member_ids][]', member.id, @checked_ids.include?(member.id) %>
+              <%= member.name %>
+            </label><br>
+          <% end %>
+        </dd>
+      </dl>
+    </div>
+  </section>
+
+  <footer class="send">
+    <%= f.submit t('ss.links.deliver'), class: 'btn-primary save', onclick: "return confirm('#{t("ss.confirm.test_deliver")}')" %>
+    <%= link_to t('ss.buttons.cancel'), { action: :show }, { class: 'btn-default' } %>
+  </footer>
+<% end %>
+
+<%= jquery do %> SS.confirmUnloading();<% end %>

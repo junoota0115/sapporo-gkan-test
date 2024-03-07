@@ -1,0 +1,14 @@
+ja:
+  modules:
+    gws/smart_hr: SmartHR連携
+    gws/smart_hr/groups: グループ連携
+    gws/smart_hr/users: ユーザー連携
+    gws/smart_hr/settings: 設定
+
+  gws_role:
+    use_gws_smart_hr: SmartHR連携の利用
+
+  job:
+    models:
+      gws/smart_hr/group_import_job: SmartHRグループ連携
+      gws/smart_hr/user_import_job: SmartHRユーザー連携

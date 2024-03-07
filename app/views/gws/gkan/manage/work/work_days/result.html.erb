@@ -1,0 +1,49 @@
+<div class="index content-main gws-gkan-yearly-table">
+  <div class="list-head">
+    <h2 class="list-head-title">
+      <% if @group %>
+        <span class="group"><%= @group.trailing_name %></span>
+      <% end %>
+      <span class="title"><%= "#{@fiscal_year}#{t("ss.fiscal_year")}" %></span>
+    </h2>
+    <nav>
+      <%= select_tag :fiscal_year, options_for_select(fiscal_year_options, @fiscal_year), id: nil %>
+    </nav>
+  </div>
+
+  <div class="data-table-wrap wrap-table">
+
+    <table class="index data-table">
+      <thead>
+        <tr>
+          <th><%= "氏名" %></th>
+          <th><%= "職員番号" %></th>
+          <th><%= "基準出勤日数" %></th>
+          <th><%= "出勤日数" %></th>
+          <th><%= "休出日数" %></th>
+          <th><%= "勤務時間(h)" %></th>
+          <th><%= "時間外勤務(深夜)(h)" %></th>
+          <% @leave.each do |item|%>
+            <th class="leave"><%= item.name %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each do |item| %>
+          <tr>
+            <td><%= item.name %></td>
+            <td><%= item.organization_uid %></td>
+            <td><%= "" %></td>
+            <td><%= "" %></td>
+            <td><%= "" %></td>
+            <td><%= "" %></td>
+            <td><%= "" %></td>
+            <% @leave.each do |item|%>
+              <td class="leave"><%= "" %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

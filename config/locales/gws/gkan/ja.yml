@@ -1,0 +1,574 @@
+ja:
+  gws/gkan:
+    views:
+      yen: 円
+      etc: その他
+      manual_input: 手入力
+      import_default_records: 勤務予定取り込み
+      download_work_records: 勤務実績出力
+      import_work_records: 勤務実績取り込み
+      request_time_card: タイムカード承認申請
+      search_work_result: 乖離状況検索
+      no_settings: 登録はありません
+
+    options:
+      state:
+        public: 公開
+        closed: 下書き
+        request: 申請
+        approve: 承認
+        pending: 下位承認待ち
+        remand: 差し戻し
+      wday_type:
+        workday: 勤務日
+        holiday: 休日
+      employee_type:
+        regular13g: 月給（13G）
+        regular21g: 月給（21G）
+        parttimer: 時給
+      night_shift:
+        disabled: なし
+        enabled: あり
+      paid_type:
+        paid: 算入
+        unpaid: 不算入
+      limit_term:
+        1months: 単月時間外労働時間
+        2months: 過去2ヶ月平均
+        3months: 過去3ヶ月平均
+        4months: 過去4ヶ月平均
+        5months: 過去5ヶ月平均
+        6months: 過去6ヶ月平均
+        12months: 過去1年
+      regular_holiday:
+        workday: 勤務日
+        holiday: 休業日
+      effective_unit:
+        day: 日
+        half_day: 半日
+        hour: 時間
+        minute: 分
+      dataset:
+        overtime: 時間外勤務手当／実費交通費支給用
+        monthly: 月例給与支給用
+      export_unit:
+        daily: 日別
+        monthly: 月別
+        yearly: 年別
+      hour_type:
+        3hours: 3時間
+        4hours: 4時間
+        5hours: 5時間
+        6hours: 6時間
+        7hours: 7時間
+        8hours: 8時間
+      leave_type:
+        annual_leave: 年次有給休暇
+        special_leave: 特別休暇
+        other: その他
+      expense:
+        compensate: 振替
+        settlement: 精算
+    links:
+      set_worktime_of_wday: 曜日毎に設定する
+      import_paid_leave: 年次有給休暇自動付与
+    buttons:
+      workflow: 承認申請
+    notice:
+      reset: リセットしました。
+      import_paid_leave: '%{fiscal_year} の年次有給休暇の前年度からの繰越と新年度分の付与を一括実行する画面です。'
+    formats:
+      attendace_setting_name: '%{duty} %{year}年%{month}月'
+    apis:
+      duty_setting:
+        index: 雇用区分を選択する
+        search: 雇用区分を検索
+        select: 雇用区分を設定する
+
+  modules:
+    gws/gkan: 出勤簿
+    gws/gkan/attendance: 出勤簿
+    gws/gkan/attendance/time_card: タイムカード
+    gws/gkan/attendance/location: 勤務地
+    gws/gkan/attendance/setting: 出勤簿設定
+    gws/gkan/attendance/overtime: 時間外申請
+    gws/gkan/attendance/overtime/files/mine: 自身の申請
+    gws/gkan/attendance/overtime/files/approve: 依頼されたもの
+    gws/gkan/attendance/overtime/files/all: 全ての管理
+    gws/gkan/attendance/holiday_work: 休出申請
+    gws/gkan/attendance/holiday_work/files/mine: 自身の申請
+    gws/gkan/attendance/holiday_work/files/approve: 依頼されたもの
+    gws/gkan/attendance/holiday_work/files/all: 全ての管理
+    gws/gkan/attendance/leave: 休暇申請
+    gws/gkan/attendance/leave/files/mine: 自身の申請
+    gws/gkan/attendance/leave/files/approve: 依頼されたもの
+    gws/gkan/attendance/leave/files/all: 全ての管理
+    gws/gkan/attendance/work: 就業実績
+    gws/gkan/attendance/work/work_days: 実績照会
+    gws/gkan/attendance/work/leave_taken: 休暇取得数
+    gws/gkan/attendance/work/leave_left: 休暇残数
+    gws/gkan/workflow/route: 承認ルート
+    gws/gkan/manage/work: 労務管理
+    gws/gkan/manage/work/members: 管理対象者
+    gws/gkan/manage/work/work_days: 組織就業実績
+    gws/gkan/manage/work/work_times: 月別組織就業実績
+    gws/gkan/manage/work/work_limits: 労働時間上限
+    gws/gkan/manage/work/work_records: 乖離状況検索
+    gws/gkan/manage/attendance: 出勤簿管理
+    gws/gkan/manage/attendance/time_cards: タイムカード
+    gws/gkan/manage/attendance/default_records: 勤務予定
+    gws/gkan/manage/attendance/work_records: 勤務実績
+    gws/gkan/manage/attendance/work_records/download: 出力
+    gws/gkan/manage/attendance/work_records/import: 取込
+    gws/gkan/manage/payment: 決済データ
+    gws/gkan/manage/payment/internal: 内部決済向け
+    gws/gkan/manage/payment/internal/overtime: 時間外
+    gws/gkan/manage/payment/internal/parttime: パート支給
+    gws/gkan/manage/payment/external: 給与システム向け
+    gws/gkan/manage/payment/external/regular21g: 月給職（21G）
+    gws/gkan/manage/payment/external/regular13g: 月給職（13G）
+    gws/gkan/manage/payment/external/parttime: 時給職
+    gws/gkan/manage/payment/audit: 監査用
+    gws/gkan/admin: 設定
+    gws/gkan/admin/attendance_setting: 出勤簿
+    gws/gkan/admin/duty_setting: 雇用区分
+    gws/gkan/admin/leave_setting: 休暇区分
+    gws/gkan/admin/leave: 休暇種別
+    gws/gkan/admin/rate: 割増種別
+    addons:
+      gws/user/gkan_setting: 出勤簿
+      gws/gkan/attendance_setting/paid_leave: 年次有給休暇
+      gws/gkan/duty_setting/worktime: 勤務時間
+      gws/gkan/duty_setting/holiday: 休日
+      gws/gkan/leave_setting/unit: 休暇項目
+      gws/gkan/approver: 承認
+
+  mongoid:
+    models:
+      gws/gkan/attendance/overtime_file: 時間外申請
+      gws/gkan/attendance/holiday_work_file: 休出申請
+      gws/gkan/attendance/leave_file: 休暇申請
+    attributes:
+      gws/gkan/attendance/time_card:
+        name: 名称
+        duty_setting_id: 雇用区分
+        total_location_cost: 通勤手当合計
+        total_travel_cost: 実費交通費合計
+      gws/gkan/attendance/record:
+        date: 日付
+        start: 出勤予定
+        enter: 出勤打刻
+        close: 退勤予定
+        leave: 退勤打刻
+        break_time: 休憩時間
+        memo: 備考
+        location: 勤務地
+        location_cost: 通勤手当
+        travel_cost: 実費交通費
+        night_shift: 宿直
+        work_time: 執務時間
+        regular_holiday: 休日フラグ
+        regular_start: 所定開始
+        regular_close: 所定終業
+      gws/gkan/attendance/location:
+        name: 名称
+        location_cost: 交通費
+        order: 並び順
+      gws/addon/user/gkan_setting:
+        gkan_duty_setting_id: 雇用区分
+      gws/gkan/attendance_setting:
+        name: 名称
+        user_id: ユーザー
+        start_date: 雇用開始
+        close_date: 雇用終了
+        duty_setting_id: 雇用区分
+        leave_setting_id: 休暇区分
+        manager_id: 労働時間管理者
+      gws/gkan/duty_setting:
+        name: 名称
+        code: 雇用区分コード
+        remark: 説明
+        employee_type: 職員区分
+        order: 並び順
+      gws/gkan/leave_setting:
+        name: 名称
+        remark: 説明
+        leave_unit_ids: 休暇項目
+        order: 並び順
+      gws/gkan/leave_unit:
+        name: 名称
+        leave_id: 休暇種別
+        paid_type: 休暇実績
+        effective_count: 登録可能数
+        effective_unit: 登録可能単位
+        order: 並び順
+      gws/gkan/leave:
+        name: 名称
+        code: 休暇種別コード
+        leave_type: 種別
+        remark: 説明
+        order: 並び順
+      gws/gkan/rate:
+        name: 名称
+        code: 時間外コード
+        remark: 説明
+        order: 並び順
+      gws/gkan/paid_leave:
+        name: 名称
+        hour_type: 時間数
+        start_date: 付与日
+        close_date: 消失日
+        effective_days: 有効日数
+        remark: 備考
+      gws/addon/gkan/duty_setting/worktime:
+        worktime_day_minute: 所定労働時間（1日）
+        worktime_week_minute: 所定労働時間（週）
+        worktime: 所定労働時間（勤務時間）
+      gws/addon/gkan/duty_setting/holiday:
+        wday_settings: 休日設定
+        sunday_type: 日曜日
+        monday_type: 月曜日
+        tuesday_type: 火曜日
+        wednesday_type: 水曜日
+        thursday_type: 木曜日
+        friday_type: 金曜日
+        saturday_type: 土曜日
+        national_holiday_type: 祝日
+      gws/gkan/attendance/overtime_file:
+        name: タイトル
+        date: 日時
+        start_at: 開始日時
+        close_at: 終了日時
+        body: 申請内容
+      gws/gkan/attendance/holiday_work_file:
+        name: タイトル
+        date: 日時
+        start_at: 開始日時
+        close_at: 終了日時
+        expense: 精算
+        body: 申請内容
+        comp_date: 振替日時
+      gws/gkan/attendance/leave_file:
+        name: タイトル
+        date: 日時
+        allday: 終日
+        start_at: 開始日時
+        close_at: 終了日時
+        leave_unit_id: 休暇項目
+        body: 申請内容
+      gws/addon/gkan/approver:
+        workflow_user_id: 申請者
+        workflow_state: 承認状態
+        workflow_comment: 申請コメント
+        workflow_pull_up: 引き上げ承認
+        workflow_on_remand: 差し戻し時
+        workflow_approvers: 承認者
+        workflow_required_counts: 必要承認数
+        workflow_circulations: 回覧者
+        requested: 申請日時
+        approved: 承認日時
+        comment: 差し戻しコメント
+        approver_comment: 承認者コメント
+        status: ステータス
+      gws/addon/gkan/attendance_setting/paid_leave:
+        paid_leave: 有効日数
+
+  activemodel:
+    attributes:
+      gws/gkan/attendance/time_edit:
+        in_hour: 時
+        in_minute: 分
+        in_reason: 修正理由
+      gws/gkan/attendance/default_record/importer:
+        in_file: ファイル
+        organization_uid: 職員番号
+        date: 年月日
+        regular_start: 所定開始
+        regular_close: 所定終業
+        start: 出勤予定
+        close: 退勤予定
+        break_time: 休憩時間
+        regular_holiday: 休日フラグ
+        night_shift: 宿直フラグ
+      gws/gkan/attendance/work_record/importer:
+        in_file: ファイル
+        organization_uid: 職員番号
+        date: 年月日
+      gws/gkan/attendance/work_record/downloader:
+        term: 期間
+        user_id: ユーザー
+      gws/gkan/manage/work/search_work_day:
+        group_id: 所属
+        fiscal_year: 年度
+      gws/gkan/manage/work/search_work_time:
+        group_id: 所属
+        fiscal_year: 年度
+      gws/gkan/manage/work/search_work_limit:
+        group_id: 所属
+        user_ids: ユーザー
+      gws/gkan/manage/work/search_work_record:
+        only_manage_member: 労働時間管理対象
+        organization_uid: 職員番号
+        group_id: 所属
+        user_title_id: 役職
+        term: 乖離発生日時
+        reason: 乖離理由有無
+      gws/gkan/manage/payment/internal/search_overtime:
+        term: 期間
+        group_id: 所属
+        user_ids: ユーザー
+        duty_setting_ids: 雇用区分
+      gws/gkan/manage/payment/internal/search_parttime:
+        term: 期間
+        group_id: 所属
+        user_ids: ユーザー
+        duty_setting_ids: 雇用区分
+      gws/gkan/manage/payment/external/search_regular21g:
+        term: 期間
+        group_id: 所属
+        user_ids: ユーザー
+        dataset: データセット
+      gws/gkan/manage/payment/external/search_regular13g:
+        term: 期間
+        group_id: 所属
+        user_ids: ユーザー
+      gws/gkan/manage/payment/external/search_parttime:
+        term: 期間
+        group_id: 所属
+        user_ids: ユーザー
+      gws/gkan/manage/payment/search_audit:
+        export_unit: 出力単位
+        term: 期間
+        leave_id: 休暇種別
+        group_ids: 所属
+        user_ids: ユーザー
+        duty_setting_ids: 雇用区分
+  tooltip:
+    gws/gkan/duty_setting:
+      name:
+        - 名称を入力します。
+      code:
+        - 雇用区分コードを入力します。
+      remark:
+        - 説明を入力します。
+      employee_type:
+        - 職員区分を選択します。
+    gws/gkan/leave_setting:
+      name:
+        - 名称を入力します。
+      remark:
+        - 説明を入力します。
+    gws/gkan/leave_unit:
+      leave_id:
+        - 休暇種別を選択します。
+      paid_type:
+        - 休暇実績を入力します。
+      effective_count:
+        - 登録可能数を入力します。
+      effective_unit:
+        - 登録可能単位を入力します。
+      order:
+        - 並び順を入力します。
+    gws/gkan/leave:
+      name:
+        - 名称を入力します。
+      code:
+        - 休暇コードを入力します。
+      leave_type:
+        - 種別を選択します。
+      remark:
+        - 説明を入力します。
+      order:
+        - 並び順を入力します。
+    gws/gkan/rate:
+      name:
+        - 名称を入力します。
+      code:
+        - 時間外コードを入力します。
+      remark:
+        - 説明を入力します。
+      order:
+        - 並び順を入力します。
+    gws/gkan/paid_leave:
+      hour_type:
+        - 時間数を選択します。
+      start_date:
+        - 付与日を入力します。
+      effective_days:
+        - 有効日数を入力します。
+      remark:
+        - 備考を入力します。
+    gws/gkan/attendance/location:
+      name:
+        - 名称を入力します。
+      location_cost:
+        - 通勤手当を入力します。
+      order:
+        - 並び順を入力します。
+    gws/gkan/attendance/overtime_file:
+      name:
+        - タイトルを入力します。
+      date:
+        - 日時を入力します。
+      start_at:
+        - 開始日時を入力します。
+      close_at:
+        - 終了日時を入力します。
+      body:
+        - 申請内容を入力します。
+    gws/gkan/attendance/holiday_work_file:
+      name:
+        - タイトルを入力します。
+      date:
+        - 日時を入力します。
+      start_at:
+        - 開始日時を入力します。
+      close_at:
+        - 終了日時を入力します。
+      expense:
+        - 精算もしくは振替かを選択肢します。
+      body:
+        - 申請内容を入力します。
+      comp_date:
+        - 振替日を入力します。
+    gws/gkan/attendance/leave_file:
+      name:
+        - タイトルを入力します。
+      date:
+        - 日時を入力します。
+      leave_unit_id:
+        - 休暇項目を入力します。
+      body:
+        - 申請内容を入力します。
+    gws/gkan/manage/work/search_work_day:
+      group_id:
+        - 所属を選択します。
+      fiscal_year:
+        - 年度を選択します。
+    gws/gkan/manage/work/search_work_time:
+      group_id:
+        - 所属を選択します。
+      fiscal_year:
+        - 年度を選択します。
+    gws/gkan/manage/work/search_work_limit:
+      group_id:
+        - 所属を選択します。
+      user_ids:
+        - ユーザーを選択します。
+    gws/gkan/manage/payment/internal/search_overtime:
+      term:
+        - 期間を入力します。
+      group_id:
+        - 所属を選択します。
+      user_ids:
+        - ユーザーを選択します。
+      duty_setting_ids:
+        - 雇用区分を選択します。
+    gws/gkan/manage/payment/internal/search_parttime:
+      term:
+        - 期間を入力します。
+      group_id:
+        - 所属を選択します。
+      user_ids:
+        - ユーザーを選択します。
+      duty_setting_ids:
+        - 雇用区分を選択します。
+    gws/gkan/manage/payment/external/search_regular21g:
+      term:
+        - 期間を入力します。
+      group_id:
+        - 所属を選択します。
+      user_ids:
+        - ユーザーを選択します。
+      dataset:
+        - データセットを選択します。
+    gws/gkan/manage/payment/external/search_regular13g:
+      term:
+        - 期間を入力します。
+      group_id:
+        - 所属を選択します。
+      user_ids:
+        - ユーザーを選択します。
+    gws/gkan/manage/payment/external/search_parttime:
+      term:
+        - 期間を入力します。
+      group_id:
+        - 所属を選択します。
+      user_ids:
+        - ユーザーを選択します。
+    gws/gkan/manage/payment/search_audit:
+      export_unit:
+        - 出力単位を選択します。
+      term:
+        - 期間を入力します。
+      leave_id:
+        - 休暇種別を選択します。
+      group_ids:
+        - 所属を選択します。
+      user_ids:
+        - ユーザーを選択します。
+      duty_setting_ids:
+        - 雇用区分を選択します。
+    gws/gkan/attendance/work_record/downloader:
+      term:
+        - 期間を入力します。
+      user_id:
+        - ユーザーを選択します。
+
+  gws_role:
+    # time_cards
+    use_gws_gkan_attendance_time_cards: 出勤簿の利用
+    edit_gws_gkan_attendance_time_cards: 出勤簿時刻の変更
+    manage_gws_gkan_attendance_time_cards: 出勤簿の管理
+    approve_gws_gkan_attendance_time_cards: 出勤簿申請の承認
+    reroute_gws_gkan_attendance_time_cards: 出勤簿申請の経路変更
+    # overtime_files
+    read_other_gws_gkan_attendance_overtime_files: 時間外申請の閲覧（全て）
+    read_private_gws_gkan_attendance_overtime_files: 時間外申請の閲覧（所有）
+    edit_other_gws_gkan_attendance_overtime_files: 時間外申請の編集（全て）
+    edit_private_gws_gkan_attendance_overtime_files: 時間外申請の編集（所有）
+    delete_other_gws_gkan_attendance_overtime_files: 時間外申請の削除（全て）
+    delete_private_gws_gkan_attendance_overtime_files: 時間外申請の削除（所有）
+    approve_private_gws_gkan_attendance_overtime_files: 時間外申請の承認（所有）
+    approve_other_gws_gkan_attendance_overtime_files: 時間外申請の承認（全て）
+    reroute_private_gws_gkan_attendance_overtime_files: 時間外申請の経路変更（所有）
+    reroute_other_gws_gkan_attendance_overtime_files: 時間外申請の経路変更（全て）
+    # holiday_work_files
+    read_other_gws_gkan_attendance_holiday_work_files: 休出申請の閲覧（全て）
+    read_private_gws_gkan_attendance_holiday_work_files: 休出申請の閲覧（所有）
+    edit_other_gws_gkan_attendance_holiday_work_files: 休出申請の編集（全て）
+    edit_private_gws_gkan_attendance_holiday_work_files: 休出申請の編集（所有）
+    delete_other_gws_gkan_attendance_holiday_work_files: 休出申請の削除（全て）
+    delete_private_gws_gkan_attendance_holiday_work_files: 休出申請の削除（所有）
+    approve_private_gws_gkan_attendance_holiday_work_files: 休出申請の承認（所有）
+    approve_other_gws_gkan_attendance_holiday_work_files: 休出申請の承認（全て）
+    reroute_private_gws_gkan_attendance_holiday_work_files: 休出申請の経路変更（所有）
+    reroute_other_gws_gkan_attendance_holiday_work_files: 休出申請の経路変更（全て）
+    # leave_files
+    read_other_gws_gkan_attendance_leave_files: 休暇申請の閲覧（全て）
+    read_private_gws_gkan_attendance_leave_files: 休暇申請の閲覧（所有）
+    edit_other_gws_gkan_attendance_leave_files: 休暇申請の編集（全て）
+    edit_private_gws_gkan_attendance_leave_files: 休暇申請の編集（所有）
+    delete_other_gws_gkan_attendance_leave_files: 休暇申請の削除（全て）
+    delete_private_gws_gkan_attendance_leave_files: 休暇申請の削除（所有）
+    approve_private_gws_gkan_attendance_leave_files: 休暇申請の承認（全て）
+    approve_other_gws_gkan_attendance_leave_files: 休暇申請の承認（所有）
+    reroute_private_gws_gkan_attendance_leave_files: 休暇申請の経路変更（全て）
+    reroute_other_gws_gkan_attendance_leave_files: 休暇申請の経路変更（所有）
+    # attendance work_days
+    use_gws_gkan_attendance_work_days: 就業実績の利用
+    # workflow_routes
+    use_gws_gkan_workflow_routes: 承認ルートの利用
+    # locations
+    use_gws_gkan_attendance_locations: 勤務地の利用
+    # manage attendance
+    use_private_gws_gkan_manage_attendances: 出勤簿管理の利用（所有）
+    use_other_gws_gkan_manage_attendances: 出勤簿管理の利用（全て）
+    # manage work
+    use_private_gws_gkan_manage_works: 労務管理の利用（所有）
+    use_other_gws_gkan_manage_works: 労務管理の利用（全て）
+    # manage payment
+    use_private_gws_gkan_manage_payments: 決済データ出力の利用（所有）
+    use_other_gws_gkan_manage_payments: 決済データ出力の利用（全て）
+    # settings
+    use_gws_gkan_admin_settings: 設定の管理

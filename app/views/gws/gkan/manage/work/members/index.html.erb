@@ -1,0 +1,35 @@
+<div class="index content-main">
+  <div class="list-head">
+    <h2 class="list-head-title">
+      <span class="group"><%= "" %></span>
+      <span class="title"><%= "自身の管理対象者" %></span>
+    </h2>
+  </div>
+
+  <div class="data-table-wrap wrap-table">
+    <table class="index data-table">
+      <thead>
+        <tr>
+          <th class="name"><%= Gws::User.t :name %></th>
+          <th><%= "労務管理者" %></th>
+          <th><%= "所属" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @attendances.present? %>
+          <% @attendances.each do |setting| %>
+            <tr>
+              <td class="name"><%= tryb { setting.user.long_name } %></td>
+              <td><%= tryb{ setting.manager.name } %></td>
+              <td><%= tryb{ setting.manager.gws_main_group(@cur_site).trailing_name } %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="3"><%= t("gws/gkan.views.no_settings") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

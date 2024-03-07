@@ -1,0 +1,7 @@
+<%= form_tag({ action: :run }, { id: "task-form" }) do |f| %>
+  <%= render "ss/tasks/box", task: @item, url: url_for(action: :index, format: :json) %>
+
+  <footer class="send">
+    <%= submit_tag t("ss.buttons.run"), class: "btn-primary save", data: { disable_with: t("ss.buttons.running") } %>
+  </footer>
+<% end %>

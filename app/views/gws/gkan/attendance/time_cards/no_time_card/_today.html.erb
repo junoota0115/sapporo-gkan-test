@@ -1,0 +1,42 @@
+<div class="attendance-box">
+  <div class="attendance-box-title"><%= I18n.l(@today.to_date, format: :full) %></div>
+
+  <div class="attendance-box-main">
+    <div class="today-wrap">
+      <table class="today">
+        <thead>
+          <th class"start"><%= Gws::Gkan::Attendance::Record.t(:start) %></th>
+          <th class"enter"><%= Gws::Gkan::Attendance::Record.t(:enter) %></th>
+          <th class"close"><%= Gws::Gkan::Attendance::Record.t(:close) %></th>
+          <th class"leave"><%= Gws::Gkan::Attendance::Record.t(:leave) %></th>
+          <th class"break-time"><%= Gws::Gkan::Attendance::Record.t(:break_time) %></th>
+          <th class="memo"><%= Gws::Gkan::Attendance::Record.t(:memo) %></th>
+        </thead>
+        <tbody>
+          <tr class="action">
+            <td class="time start" rowspan="2"><%= format_time(@today, nil) %></td>
+            <td class="time enter">
+              <%= button_tag(t('gws/attendance.buttons.punch'), name: 'punch', type: 'button', class: 'btn', disabled: true) %>
+            </td>
+            <td class="time close" rowspan="2"><%= format_time(@today, nil) %></td>
+            <td class="time leave">
+              <%= button_tag(t('gws/attendance.buttons.punch'), name: 'punch', type: 'button', class: 'btn', disabled: true) %>
+            </td>
+            <td class="time break-time">
+              <%= button_tag(t('ss.buttons.edit'), name: 'edit', type: 'button', class: 'btn', disabled: true) %>
+            </td>
+            <td class="memo">
+              <%= button_tag(t('ss.buttons.edit'), name: 'edit', type: 'button', class: 'btn', disabled: true) %>
+            </td>
+          </tr>
+          <tr class="info">
+            <td class="time enter"><%= format_time(@today, nil) %></td>
+            <td class="time leave"><%= format_time(@today, nil) %></td>
+            <td class="time break-time"><%= format_time(@today, nil) %></td>
+            <td class="memo"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

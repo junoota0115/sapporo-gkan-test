@@ -1,0 +1,60 @@
+<%= form_for :item, url: { action: :index }, html: { method: :post, id: "item-form" } do |f| %>
+  <%= error_messages_for :item %>
+
+  <section class="main-box">
+    <header><h2><%= t("gws/gkan.views.search_work_result") %></h2></header>
+
+    <div class="main-body">
+      <dl class="see">
+        <dt><%= @item.t :only_manage_member %></dt>
+        <dd>
+          <label>
+            <%= f.check_box :only_manage_member %>
+            <%= "労働時間管理対象のみ表示" %>
+          </label>
+        </dd>
+
+        <dt><%= @item.t :organization_uid %></dt>
+        <dd><%= f.text_field :organization_uid %></dd>
+
+        <dt><%= @item.t :group_id %></dt>
+        <dd><%= f.select :group_id, @item.group_options, include_blank: true %></dd>
+
+        <dt><%= @item.t :user_title_id %></dt>
+        <dd><%= f.select :user_title_id, @item.user_title_options, include_blank: true %></dd>
+
+        <dt><%= @item.t :term %></dt>
+        <dd>
+          <%= f.text_field :start, class: "date js-date" %>
+          <%= "-" %>
+          <%= f.text_field :close, class: "date js-date" %>
+        </dd>
+
+        <dt><%= @item.t :reason %></dt>
+        <dd>
+          <label>
+            <%= f.radio_button :reason, 'exists' %>
+            <%= "乖離理由有りを表示" %>
+          </label>
+          <label>
+            <%= f.radio_button :reason, 'none' %>
+            <%= "乖離理由無しを表示" %>
+          </label>
+          <label>
+            <%= f.radio_button :reason, 'both' %>
+            <%= "どちらも表示" %>
+          </label>
+        </dd>
+      </dl>
+
+      <footer class="send">
+        <%= f.submit t("ss.buttons.search"), class: :save %>
+        <%= f.button t("ss.buttons.reset"), class: "btn-default", type: :reset, onclick: "location.href='#{url_for(action: :index)}'; return false;" %>
+      </footer>
+    </div>
+  </section>
+<% end %>
+
+<% if @items %>
+  <%= render template: "result" %>
+<% end %>

@@ -1,0 +1,19 @@
+<table class="columns column">
+  <caption><%= @cur_node.name %></caption>
+  <thead>
+  <tr>
+    <th scope="col"><%= t('garbage.category.name') %></th>
+    <th scope="col"><%= t('garbage.collection') %></th>
+    <th scope="col"><%= t('garbage.remarks') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @cur_node.garbage_type.each do |item| %>
+    <tr>
+      <td><%= item[:field] %></td>
+      <td><%= item[:view] %></td>
+      <td><%= item[:remarks] %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

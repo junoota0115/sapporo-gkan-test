@@ -1,0 +1,20 @@
+<%
+  addon ||= local_assigns.fetch(:addon, {})
+  addon[:display_body] = "hide"
+%>
+
+<dl class="see mod-gws-release">
+  <dt><%= @model.t :state %><%= @model.tt :state %></dt>
+  <dd><%= f.select :state, @item.state_options %></dd>
+
+  <% if @model.released_field_shown? %>
+  <dt><%= @model.t :released %><%= @model.tt :released %></dt>
+  <dd><%= f.ss_datetime_field :released %></dd>
+  <% end %>
+
+  <dt><%= @model.t :release_date %><%= @model.tt :release_date %></dt>
+  <dd><%= f.ss_datetime_field :release_date %></dd>
+
+  <dt><%= @model.t :close_date %><%= @model.tt :close_date %></dt>
+  <dd><%= f.ss_datetime_field :close_date %></dd>
+</dl>

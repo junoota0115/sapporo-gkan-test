@@ -1,0 +1,22 @@
+# gkan
+
+production: &production
+  default_duty:
+    worktime:
+      start_hours: 8
+      start_minutes: 45
+      close_hours: 17
+      close_minutes: 15
+    holidays:
+      - sunday
+      - saturday
+      - national_holiday
+  night_time:
+    start_hours: 22
+    close_hours: 29
+
+test:
+  <<: *production
+
+development:
+  <<: *production

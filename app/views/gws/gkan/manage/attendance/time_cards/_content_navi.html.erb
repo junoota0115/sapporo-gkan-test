@@ -1,0 +1,25 @@
+<% return if params[:action] !~ /index/ %>
+
+<%
+  opts = { descendants_check: true }
+  opts[:expand_group] = @group.id if @group
+%>
+<%= jquery do %>
+var tree = SS_TreeUI.render(".tree-groups .index.groups", <%== opts.to_json %>);
+$(".expand-all").on("click", function() {
+  tree.expandAll();
+});
+$(".collapse-all").on("click", function() {
+  tree.collapseAll();
+});
+<% end %>
+
+<div id="content-navi" class="presence-groups">
+  <h2 class="content-navi-title">
+    <%= t('gws/presence.group') %>
+  </h2>
+
+  <div class="tree-navi">
+    <%= render Gws::Gkan::TreeGroupComponent.new(cur_site: @cur_site) %>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<nav class="nav-menu">
+  <% if params[:action] =~ /show/ %>
+    <%= link_to t('ss.links.edit'), action: :edit %>
+  <% elsif params[:action] =~ /edit|update/ %>
+    <%= link_to t('ss.links.back_to_show'), action: :show %>
+  <% end %>
+</nav>

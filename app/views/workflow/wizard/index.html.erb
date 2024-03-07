@@ -1,0 +1,18 @@
+<% if @route_options.present? %>
+<dl class="see">
+  <dt>
+    <% if @ss_mode == :cms && @item.workflow_init_kind.present? %>
+      <%= t("workflow.#{@item.workflow_init_kind}_request") %>
+    <% else %>
+      <%= t("workflow.request") %>
+    <% end %>
+    <%= @model.tt :workflow_routes %>
+  </dt>
+  <dd>
+    <%= select_tag :workflow_route, options_for_select(@route_options) %>
+    <%= link_to t("workflow.buttons.select"), "#", class: "workflow-route-start btn" %>
+  </dd>
+</dl>
+<% else %>
+<h1><%= t("workflow.empty_route_options") %></h1>
+<% end %>

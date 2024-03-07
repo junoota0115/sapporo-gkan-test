@@ -1,0 +1,25 @@
+<dl class="see">
+  <dt><%= @model.t :hour_type %><%= @model.tt :hour_type %></dt>
+  <dd><%= f.select :hour_type, @item.hour_type_options %></dd>
+
+  <dt><%= @model.t :start_date %><%= @model.tt :start_date %></dt>
+  <dd><%= f.text_field :start_date, class: 'datetime js-date', value: tryb { @item.start_date.strftime("%Y/%m/%d") } %></dd>
+
+  <dt><%= @model.t :close_date %></dt>
+  <dd><%= tryb{ @item.close_date.strftime("%Y/%m/%d") } %></dd>
+
+  <dt><%= @model.t :effective_days %><%= @model.tt :effective_days %></dt>
+  <dd>
+    <%= f.number_field :effective_days %>
+    <%= t("datetime.prompts.day") %>
+  </dd>
+
+  <dt><%= @model.t :remark %><%= @model.tt :remark %></dt>
+  <dd><%= f.text_field :remark %></dd>
+</dl>
+
+<% @crud_buttons = proc do |f| %>
+  <%= f.submit t("ss.buttons.save"), class: 'btn-primary save', data: { disable_with: t("ss.buttons.saving") } %>
+  <%= f.button t("ss.buttons.cancel"), class: 'btn-default', type: :reset, onclick: "location.href='#{crud_redirect_url}'; return false;" %>
+<% end %>
+

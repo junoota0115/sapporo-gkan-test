@@ -1,0 +1,11 @@
+<dl class="see">
+  <dt><%= @model.t :wday_settings %></dt>
+  <dd></dd>
+
+  <% %w(sunday monday tuesday wednesday thursday friday saturday national_holiday).each do |wday| %>
+    <dt class="depth-2"><%= @model.t "#{wday}_type" %></dt>
+    <dd class="depth-2">
+      <%= @item.label "#{wday}_type" %>
+    </dd>
+  <% end %>
+</dl>

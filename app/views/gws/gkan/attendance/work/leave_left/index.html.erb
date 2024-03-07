@@ -1,0 +1,68 @@
+<%= jquery do %>
+$('select[name="fiscal_year"]').on("change", function(){
+  var id = $(this).val();
+  if (!id) {
+    id = "-";
+  }
+  var url = "<%= url_for(fiscal_year: "FISCAL_YEAR") %>";
+  var query = "<%= request.query_string %>";
+  url = url.replace("FISCAL_YEAR", id);
+  if (query) {
+    url += "?" + query;
+  }
+
+  location.href = url;
+  return false;
+});
+<% end %>
+<div class="gws-attendance">
+  <%= render partial: "gws/gkan/attendance/work/main/tabs" %>
+
+  <div class="index content-main gws-gkan-yearly-table">
+    <div class="list-head">
+      <h2 class="list-head-title"><%= @item.user.long_name %></h2>
+      <nav>
+        <%= select_tag :fiscal_year, options_for_select(fiscal_year_options, @fiscal_year), id: nil %>
+      </nav>
+    </div>
+    <div class="data-table-wrap wrap-table">
+      <table class="index data-table">
+        <thead>
+          <tr>
+            <th style="text-align: center;" rowspan="2" colspan="2"><%= "休暇等種類" %></th>
+            <th style="text-align: center;" colspan="2"><%= "休暇等利用実績" %></th>
+            <th style="text-align: center;" rowspan="2"><%= "残日数 / 残時間数" %></th>
+          </tr>
+          <tr>
+            <th style="text-align: center;"><%= "日単位 / 年間上限" %></th>
+            <th style="text-align: center;"><%= "時間単位 / 年間上限" %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @leave_units.each do |leave_unit| %>
+            <% if leave_unit.annual_leave? %>
+              <tr>
+                <td rowspan="<%= t("gws/gkan.options.hour_type").size + 1 %>"><%= leave_unit.leave.name %></td>
+              </tr>
+              <% t("gws/gkan.options.hour_type").each do |k, v| %>
+                <tr>
+                  <td><%= v %></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="2"><%= leave_unit.leave.name %></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

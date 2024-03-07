@@ -1,0 +1,26 @@
+<nav class="mod-navi current-navi">
+  <h2><%= link_to @cur_site.menu_gkan_attendance_label || t('modules.gws/gkan/attendance'), gws_gkan_attendance_main_path, class: 'icon-affair' %></h2>
+  <h2><%= link_to t('modules.gws/gkan/attendance'), gws_gkan_attendance_main_path %></h2>
+
+  <% if Gws::Gkan::Manage::Attendance.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h2><%= link_to t('modules.gws/gkan/manage/attendance'), gws_gkan_manage_attendance_main_path %></h2>
+  <% end %>
+  <% if Gws::Gkan::Manage::Work.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h2><%= link_to t('modules.gws/gkan/manage/work'), gws_gkan_manage_work_main_path, class: 'open' %></h2>
+  <% end %>
+
+  <h3><%= link_to  t('modules.gws/gkan/manage/work/members'), gws_gkan_manage_work_members_path %></h3>
+  <h3><%= link_to  t('modules.gws/gkan/manage/work/work_days'), gws_gkan_manage_work_work_days_path %></h3>
+  <h3><%= link_to  t('modules.gws/gkan/manage/work/work_times'), gws_gkan_manage_work_work_times_path %></h3>
+  <h3><%= link_to  t('modules.gws/gkan/manage/work/work_limits'), gws_gkan_manage_work_work_limits_path %></h3>
+  <h3><%= link_to  t('modules.gws/gkan/manage/work/work_records'), gws_gkan_manage_work_work_records_path %></h3>
+
+  <% if Gws::Gkan::Manage::Payment.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h2><%= link_to t('modules.gws/gkan/manage/payment'), gws_gkan_manage_payment_main_path %></h2>
+  <% end %>
+  <% if Gws::Gkan::Admin.allowed?(:use, @cur_user, site: @cur_site) %>
+    <h2><%= link_to t('modules.gws/gkan/admin'),  gws_gkan_admin_main_path %></h2>
+  <% end %>
+</nav>
+
+<%= render partial: 'gws/main/navi' %>

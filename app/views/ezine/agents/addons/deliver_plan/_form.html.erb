@@ -1,0 +1,9 @@
+<%
+  addon ||= local_assigns.fetch(:addon, {})
+  addon[:display_body] = "hide"
+%>
+
+<dl class="see mod-ezine-delivere-plan">
+  <dt><%= @model.t :deliver_date %><%= @model.tt :deliver_date %></dt>
+  <dd><%= f.ss_datetime_field :deliver_date %></dd>
+</dl>

@@ -1,0 +1,16 @@
+<dl class="see">
+  <dt><%= @model.t :channel_user_id %></dt>
+  <dd><%= @item.channel_user_id %></dd>
+
+  <dt><%= @model.t :hook %></dt>
+  <dd><%= @item.hook.try(:name) %></dd>
+
+  <dt><%= @model.t :data %></dt>
+  <dd><%= @item.data %></dd>
+
+  <dt><%= @model.t :locked_at %></dt>
+  <dd><%= ss_time_tag @item.locked_at %></dd>
+
+  <dt><%= @model.t :created %></dt>
+  <dd><%= ss_time_tag @item.created %></dd>
+</dl>

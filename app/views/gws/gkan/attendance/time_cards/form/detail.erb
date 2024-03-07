@@ -1,0 +1,52 @@
+<div class="addon-views">
+  <div class="addon-view" id="addon-basic">
+    <div class="addon-body">
+      <dl class="see">
+        <dt><%= @record.t :date %></dt>
+        <dd>
+          <%= l(@record.date.to_date, format: :full) %>
+          <%= @record.label :regular_holiday %>
+        </dd>
+
+        <dt>
+          <%= @record.t :regular_start %>
+          <%= t("ss.wave_dash") %>
+          <%= @record.t :regular_close %>
+        </dt>
+        <dd>
+          <% if @record.regular_start && @record.regular_close %>
+            <%= format_time(@record.date, @record.regular_start) %>
+            <%= t("ss.wave_dash") %>
+            <%= format_time(@record.date, @record.regular_close) %>
+          <% end %>
+        </dd>
+
+        <dt>
+          <%= @record.t :start %>
+          <%= t("ss.wave_dash") %>
+          <%= @record.t :close %>
+        </dt>
+        <dd>
+          <% if @record.start && @record.close %>
+            <%= format_time(@record.date, @record.start) %>
+            <%= t("ss.wave_dash") %>
+            <%= format_time(@record.date, @record.close) %>
+          <% end %>
+        </dd>
+
+        <dt>
+          <%= @record.t :enter %>
+          <%= t("ss.wave_dash") %>
+          <%= @record.t :leave %>
+        </dt>
+        <dd>
+          <% if @record.enter && @record.leave %>
+            <%= format_time(@record.date, @record.enter) %>
+            <%= t("ss.wave_dash") %>
+            <%= format_time(@record.date, @record.leave) %>
+          <% end %>
+        </dd>
+      </dl>
+    </div>
+  </div>
+</div>

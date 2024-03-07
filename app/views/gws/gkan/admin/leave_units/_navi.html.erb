@@ -1,0 +1,14 @@
+<nav class="mod-navi current-navi">
+  <h2><%= link_to @cur_site.menu_gkan_attendance_label || t('modules.gws/gkan/attendance'), gws_gkan_attendance_main_path, class: 'icon-affair' %></h2>
+  <h2><%= link_to t('modules.gws/gkan/attendance'), gws_gkan_attendance_main_path %></h2>
+  <h2><%= link_to t('modules.gws/gkan/manage/attendance'), gws_gkan_manage_attendance_main_path %></h2>
+  <h2><%= link_to t('modules.gws/gkan/manage/work'), gws_gkan_manage_work_main_path %></h2>
+  <h2><%= link_to t('modules.gws/gkan/admin'),  gws_gkan_admin_main_path, class: 'open' %></h2>
+
+  <h3><%= link_to t('modules.gws/gkan/admin/attendance_setting'), gws_gkan_admin_users_path, class: 'management' %></h3>
+  <h3><%= link_to t('modules.gws/gkan/admin/duty_setting'), gws_gkan_admin_duty_settings_path, class: 'management' %></h3>
+  <h3><%= link_to t('modules.gws/gkan/admin/leave_setting'), gws_gkan_admin_leave_settings_path, class: 'management' %></h3>
+  <h3><%= link_to t('modules.gws/gkan/admin/leave'), gws_gkan_admin_leave_index_path, class: 'management' %></h3>
+</nav>
+
+<%= render partial: 'gws/main/navi' %>

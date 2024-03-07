@@ -1,0 +1,16 @@
+<%
+  options = {}
+  options[:fiscal_year] = @fiscal_year if @fiscal_year
+  current = ::File.basename(params[:controller])
+%>
+<div class="gws-schedule-tabs">
+  <%= link_to gws_gkan_attendance_work_work_days_path(options), { class: ((current == "work_days") ? "current" : "") } do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/attendance/work/work_days') %></span>
+  <% end %>
+  <%= link_to gws_gkan_attendance_work_leave_left_path(options), { class: ((current == "leave_left") ? "current" : "") } do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/attendance/work/leave_left') %></span>
+  <% end %>
+  <%= link_to gws_gkan_attendance_work_leave_taken_path(options), { class: ((current == "leave_taken") ? "current" : "") } do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/attendance/work/leave_taken') %></span>
+  <% end %>
+</div>

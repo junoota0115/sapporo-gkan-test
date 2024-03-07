@@ -1,0 +1,20 @@
+<%= form_for :item, url: { action: :import_paid_leave }, html: { id: "item-form", method: :post, multipart: true } do |f| %>
+  <%= error_messages_for :item %>
+
+  <div class="addon-views">
+    <div class="addon-view" id="addon-basic">
+      <div class="addon-head"><h2><%= t("gws/gkan.links.import_paid_leave") %></h2></div>
+      <div class="addon-body">
+        <dl class="see">
+          <dt><%= t "ss.file" %></dt>
+          <dd><%= t("gws/gkan.notice.import_paid_leave", fiscal_year: @cur_site.fiscal_year) %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <footer class="send ss-sticky ss-sticky-bottom">
+    <%= f.submit t("ss.buttons.run"), class: :save, data: { confirm: t("ss.confirm.run"), disable_with: t("ss.buttons.run") } %>
+    <%= f.button t("ss.buttons.cancel"), onclick: "location.href='#{url_for(action: :index)}'; return false;", class: "btn-default" %>
+  </footer>
+<% end %>

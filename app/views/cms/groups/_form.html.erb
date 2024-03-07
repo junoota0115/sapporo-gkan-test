@@ -1,0 +1,18 @@
+<dl class="see">
+  <dt><%= @model.t :name %><%= @model.tt :name %></dt>
+  <dd><%= f.text_field :name %></dd>
+
+  <% if @item.domain_editable? %>
+  <dt><%= @model.t :domains %><%= @model.tt :domains %></dt>
+  <dd><%= f.text_field :domains %></dd>
+  <% end %>
+
+  <dt><%= @model.t :order %><%= @model.tt :order %></dt>
+  <dd><%= f.number_field :order %></dd>
+
+  <dt><%= @model.t :activation_date %><%= @model.tt :activation_date %></dt>
+  <dd><%= f.ss_datetime_field :activation_date %></dd>
+
+  <dt><%= @model.t :expiration_date %><%= @model.tt :expiration_date %></dt>
+  <dd><%= f.ss_datetime_field :expiration_date %></dd>
+</dl>

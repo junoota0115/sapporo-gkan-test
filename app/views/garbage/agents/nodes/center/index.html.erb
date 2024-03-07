@@ -1,0 +1,17 @@
+<table class="columns column">
+  <caption><%= @cur_node.name %></caption>
+  <thead>
+  <tr>
+    <th scope="col"><%= t('garbage.center_name') %></th>
+    <th scope="col"><%= t('garbage.rest_start') %></th>
+    <th scope="col"><%= t('garbage.rest_end') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><%= @cur_node.name %></td>
+    <td><%= ss_time_tag(@cur_node.rest_start, type: :date) %></td>
+    <td><%= ss_time_tag(@cur_node.rest_end, type: :date) %></td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,11 @@
+<%
+  current = ::File.basename(params[:controller])
+%>
+<div class="gws-schedule-tabs">
+  <%= link_to(gws_gkan_manage_attendance_work_records_download_path, { class: ((current == "download") ? "current" : "") }) do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/manage/attendance/work_records/download') %></span>
+  <% end %>
+  <%= link_to(gws_gkan_manage_attendance_work_records_import_path, { class: ((current == "import") ? "current" : "") }) do %>
+    <span class="tab-name"><%= t('modules.gws/gkan/manage/attendance/work_records/import') %></span>
+  <% end %>
+</div>

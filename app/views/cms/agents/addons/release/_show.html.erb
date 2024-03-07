@@ -1,0 +1,16 @@
+<dl class="see">
+  <dt><%= @model.t :state %></dt>
+  <dd><%= @item.label :state %></dd>
+
+  <% if @item.respond_to?(:released) %>
+    <dt><%= @model.t :released %></dt>
+      <dd>
+      <% if !@item.respond_to?(:released_type) || @item.released_type == "fixed" %>
+        <%= @item.released.try { |time| ss_time_tag(time, format: :long) } %>
+      <% else %>
+        <%= @item.label :released_type %>
+        (<%= @item.released.try { |time| ss_time_tag(time, format: :long) } %>)
+      <% end %>
+    </dd>
+  <% end %>
+</dl>

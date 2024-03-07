@@ -1,0 +1,115 @@
+<%
+  year_month = "#{@today.year}#{format('%02d', @today.month)}"
+  day02 = format('%02d', @today.day)
+%>
+
+<% render_punchable = proc do |field_name| %>
+  <% if @today_record.try(:find_latest_history, field_name).present? %>
+    <% if @model.allowed?(:edit, @cur_user, site: @cur_site) %>
+      <%= button_tag(t('ss.buttons.edit'), name: 'edit', type: 'button', class: 'btn', data: { action: time_gws_gkan_attendance_time_cards_path(year_month: year_month, day: day02, type: field_name, ref: request.fullpath) }) %>
+    <% end %>
+  <% else %>
+    <% if @model.allowed?(:use, @cur_user, site: @cur_site) %>
+      <%= button_tag(t('gws/attendance.buttons.punch'), name: 'punch', type: 'button', class: 'btn', data: { confirm: t('gws/attendance.confirm.punch'), action: "#{gws_gkan_attendance_time_cards_path(year_month: year_month)}/#{field_name}?#{ { ref: request.fullpath }.to_query }" }) %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% render_edit_time = proc do |field_name| %>
+  <% if @model.allowed?(:use, @cur_user, site: @cur_site) %>
+    <%
+      edit_path = :time_gws_gkan_attendance_time_cards_path
+      edit_path = send(edit_path, year_month: year_month, day: day02, type: field_name, ref: request.fullpath)
+    %>
+    <%= button_tag(t('ss.buttons.edit'), name: 'edit', type: 'button', class: 'btn', data: { action: edit_path }) %>
+  <% end %>
+<% end %>
+
+<% render_edit = proc do |field_name| %>
+  <% if @model.allowed?(:use, @cur_user, site: @cur_site) %>
+    <%
+      edit_path = "#{field_name}_gws_gkan_attendance_time_cards_path"
+      edit_path = send(edit_path, year_month: year_month, day: day02, ref: request.fullpath)
+    %>
+    <%= button_tag(t('ss.buttons.edit'), name: 'edit', type: 'button', class: 'btn', data: { action: edit_path }) %>
+  <% end %>
+<% end %>
+
+<% render_time = proc do |field_name| %>
+  <%= format_time(@today, @today_record.try(field_name)) %>
+  <% history = @today_record.try(:find_latest_history, field_name) %>
+  <% if history.present? && history.reason.present? %>
+    <div class="reason-tooltip">
+      <i class="material-icons md-13">&#xE0C9;</i>
+      <div class="reason">
+        <div><%= history.reason %></div>
+        <%= ss_time_tag history.created %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="attendance-box">
+  <div class="attendance-box-title"><%= I18n.l(@today.to_date, format: :full) %></div>
+
+  <div class="attendance-box-main">
+    <div class="today-wrap">
+      <table class="today">
+        <thead>
+          <th class="start"><%= Gws::Gkan::Attendance::Record.t(:start) %></th>
+          <th class="enter"><%= Gws::Gkan::Attendance::Record.t(:enter) %></th>
+          <th class="close"><%= Gws::Gkan::Attendance::Record.t(:close) %></th>
+          <th class="leave"><%= Gws::Gkan::Attendance::Record.t(:leave) %></th>
+          <th class="break_time"><%= Gws::Gkan::Attendance::Record.t(:break_time) %></th>
+          <th class="travel_cost"><%= Gws::Gkan::Attendance::Record.t(:travel_cost) %></th>
+          <th class="night_shift"><%= Gws::Gkan::Attendance::Record.t(:night_shift) %></th>
+          <th class="memo"><%= Gws::Gkan::Attendance::Record.t(:memo) %></th>
+        </thead>
+        <tbody>
+          <% if @today_time_card.unlocked? %>
+            <tr class="action">
+              <td class="time start" rowspan="2"><% render_time.call(:start) %></td>
+              <td class="time enter"><% render_punchable.call(:enter) %></td>
+              <td class="time close" rowspan="2"><% render_time.call(:close) %></td>
+              <td class="time leave"><% render_punchable.call(:leave) %></td>
+              <td class="time break-time"><% render_edit_time.call(:break_time) %></td>
+              <td class="time travel-cost"><% render_edit.call(:travel_cost) %></td>
+              <td class="time night-shift"><% render_edit.call(:night_shift) %></td>
+              <td class="memo"><% render_edit.call(:memo) %></td>
+            </tr>
+            <tr class="info">
+              <td class="time enter"><% render_time.call(:enter) %></td>
+              <td class="time leave"><% render_time.call(:leave) %></td>
+              <td class="time break-time"><%= render_time.call(:break_time) %></td>
+              <td class="time travel-cost">
+                <% if travel_cost = @today_record.try(:travel_cost) %>
+                  <%= travel_cost.to_s(:delimited) + t("gws/gkan.views.yen") %>
+                <% end %>
+              </td>
+              <td class="time night-shift"><%= @today_record.label(:night_shift) %></td>
+              <td class="memo"><%= @today_record.try(:memo) %></td>
+            </tr>
+          <% else %>
+            <tr>
+              <td colspan="<%= 8 %>"><%= t('gws/attendance.already_locked') %></td>
+            </tr>
+            <tr class="info">
+              <td class="time start"><% render_time.call(:start) %></td>
+              <td class="time enter"><% render_time.call(:enter) %></td>
+              <td class="time close"><% render_time.call(:close) %></td>
+              <td class="time leave"><% render_time.call(:leave) %></td>
+              <td class="time break-time"><%= render_time.call(:break_time) %></td>
+              <td class="time night-shift"><%= @today_record.label(:night_shift) %></td>
+              <td class="time travel-cost">
+                <% if travel_cost = @today_record.try(:travel_cost) %>
+                  <%= travel_cost.to_s(:delimited) + t("gws/gkan.views.yen") %>
+                <% end %>
+              </td>
+              <td class="memo"><%= @today_record.try(:memo) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

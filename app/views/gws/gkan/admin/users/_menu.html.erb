@@ -1,0 +1,9 @@
+<nav class="nav-menu">
+  <% if params[:action] =~ /index/ %>
+    <%= link_to t('ss.links.download'), { action: :download } %>
+    <%= link_to t('ss.links.import'), { action: :import } %>
+    <%= link_to t("gws/gkan.links.import_paid_leave"), { action: :import_paid_leave } %>
+  <% elsif params[:action] =~ /import|download/ %>
+    <%= link_to t('ss.links.back'), action: :index %>
+  <% end %>
+</nav>

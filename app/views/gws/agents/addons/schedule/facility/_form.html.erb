@@ -1,0 +1,26 @@
+<dl class="see gws-schedule-facility" data-plan-id="<%= @item.persisted? ? @item.id : "" %>">
+  <dt><%= @model.t :facility_ids %><%= @model.tt :facility_ids %></dt>
+  <dd>
+    <%= f.hidden_field('facility_ids[]', value: '', id: nil, class: 'hidden-ids') %>
+    <%= link_to(t('gws.apis.facilities.index'), gws_apis_facilities_path, class: 'ajax-box btn btn-select-facility') %>
+    <%= button_tag(I18n.t('gws/schedule.facility_reservation.index'), type: 'button', class: %w(btn btn-confirm-facility-reservation), style: 'display: none;') %>
+  </dd>
+  <dd>
+    <table class="index ajax-selected">
+      <thead><tr><th class="name"><%= Gws::Facility::Item.t :name %></th><th class="deselect"></th></tr></thead>
+      <tbody>
+        <% @item.facilities.each do |item| %>
+        <tr data-id="<%= item.id %>">
+          <td><%= f.hidden_field "facility_ids[]", value: item.id, id: nil %> <%= item.name %></td>
+          <td><%= link_to t("ss.buttons.delete"), "#", class: "deselect btn" %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </dd>
+</dl>
+
+<%= jquery do %>
+  <% options = { confirm: @item.persisted?, search_reservations_path: gws_schedule_search_reservations_path } %>
+  new Gws_Schedule_FacilityReservation(<%== options.to_json %>);
+<% end %>

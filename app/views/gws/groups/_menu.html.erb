@@ -1,0 +1,27 @@
+<nav class="nav-menu">
+  <% if params[:action] =~ /index/ %>
+    <% if @model.allowed?(:edit, @cur_user, site: @cur_site) %>
+      <%= link_to t('ss.links.new'), url_for(action: :new) %>
+      <%= link_to t('ss.links.download'), url_for(action: :download_all) %>
+      <%= link_to t('ss.links.import'), url_for(action: :import) %>
+    <% end %>
+    <% if Gws::SmartHr.allowed?(:use, @cur_user, site: @cur_site) %>
+      <%= link_to t('modules.gws/smart_hr/groups'), gws_smart_hr_groups_path %>
+    <% end %>
+  <% elsif params[:action] =~ /new|create|lock|import|destroy_all|download_all/ %>
+    <%= link_to t('ss.links.back_to_index'), url_for(action: :index) %>
+  <% elsif params[:action] =~ /edit|update|delete|move/ %>
+    <% if @item.allowed?(:read, @cur_user, site: @cur_site) %>
+      <%= link_to t('ss.links.back_to_show'), url_for(action: :show, id: @item) %>
+    <% end %>
+    <%= link_to t('ss.links.back_to_index'), url_for(action: :index) %>
+  <% else %>
+    <% if @item.allowed?(:edit, @cur_user, site: @cur_site) %>
+      <%= link_to t('ss.links.edit'), url_for(action: :edit, id: @item) %>
+    <% end %>
+    <% if @item.active? && @item.allowed?(:delete, @cur_user, site: @cur_site) %>
+      <%= link_to t('ss.links.delete'), url_for(action: :delete, id: @item) %>
+    <% end %>
+    <%= link_to t('ss.links.back_to_index'), url_for(action: :index) %>
+  <% end %>
+</nav>

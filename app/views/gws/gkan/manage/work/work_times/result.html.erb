@@ -1,0 +1,48 @@
+<div class="index content-main gws-gkan-yearly-table">
+  <div class="list-head">
+    <h2 class="list-head-title">
+      <% if @group %>
+        <span class="group"><%= @group.trailing_name %></span>
+      <% end %>
+      <span class="title"><%= "#{@fiscal_year}#{t("ss.fiscal_year")}" %></span>
+    </h2>
+    <nav>
+      <%= select_tag :fiscal_year, options_for_select(fiscal_year_options, @fiscal_year), id: nil %>
+    </nav>
+  </div>
+
+  <div class="data-table-wrap wrap-table">
+    <table class="index data-table">
+      <thead>
+        <tr>
+          <th><%= "氏名" %></th>
+          <th><%= "職員番号" %></th>
+          <th><%= "" %></th>　
+          <% months.each do |month| %>
+            <th><%= "#{month}#{t("datetime.prompts.month")}" %></th>
+          <% end %>
+          <th><%= "年間累計" %></th>　
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each do |item| %>
+          <tr>
+            <td rowspan="2"><%= item.name %></td>
+            <td rowspan="2"><%= item.organization_uid %></td>
+            <td><%= "勤務時間(h)" %></td>
+            <% months.each do |month|%>
+              <td><%= "" %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td><%= "時間外勤務(深夜)(h)" %></td>
+            <% months.each do |month|%>
+              <td><%= "" %></td>
+            <% end %>
+            <td><%= "" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

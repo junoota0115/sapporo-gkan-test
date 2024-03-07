@@ -1,0 +1,79 @@
+<%= jquery do %>
+$('select[name="fiscal_year"]').on("change", function(){
+  var id = $(this).val();
+  if (!id) {
+    id = "-";
+  }
+  var url = "<%= url_for(fiscal_year: "FISCAL_YEAR") %>";
+  var query = "<%= request.query_string %>";
+  url = url.replace("FISCAL_YEAR", id);
+  if (query) {
+    url += "?" + query;
+  }
+
+  location.href = url;
+  return false;
+});
+<% end %>
+<div class="gws-attendance">
+  <%= render partial: "gws/gkan/attendance/work/main/tabs" %>
+
+  <div class="index content-main gws-gkan-yearly-table">
+    <div class="list-head">
+      <h2 class="list-head-title"><%= @item.user.long_name %></h2>
+      <nav>
+        <%= select_tag :fiscal_year, options_for_select(fiscal_year_options, @fiscal_year), id: nil %>
+      </nav>
+    </div>
+    <div class="data-table-wrap wrap-table">
+      <table class="index data-table">
+        <thead>
+          <tr>
+            <th><%= "" %></th>　
+            <% months.each do |month| %>
+              <th><%= "#{month}#{t("datetime.prompts.month")}" %></th>
+            <% end %>
+            <th><%= "合計" %></th>　
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= "基準出勤日数" %></td>
+            <% months.each do |month|%>
+              <td><%= "" %></td>
+            <% end %>
+            <td><%= "" %></td>
+          </tr>
+          <tr>
+            <td><%= "出勤日数" %></td>
+            <% months.each do |month|%>
+              <td><%= "" %></td>
+            <% end %>
+            <td><%= "" %></td>
+          </tr>
+          <tr>
+            <td><%= "休出日数" %></td>
+            <% months.each do |month|%>
+              <td><%= "" %></td>
+            <% end %>
+            <td><%= "" %></td>
+          </tr>
+          <tr>
+            <td><%= "勤務時間(h)" %></td>
+            <% months.each do |month|%>
+              <td><%= "" %></td>
+            <% end %>
+            <td><%= "" %></td>
+          </tr>
+          <tr>
+            <td><%= "残業(深夜)(h)" %></td>
+            <% months.each do |month|%>
+              <td><%= "" %></td>
+            <% end %>
+            <td><%= "" %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

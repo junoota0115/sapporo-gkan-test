@@ -1,0 +1,37 @@
+<div class="gws-attendance">
+  <%= error_messages_for :item %>
+
+  <% if @item %>
+    <%= render "#{@item.view_type}/today" %>
+    <div class="attendance-box monthly">
+      <div class="attendance-box-title"><%= t('gws/attendance.formats.time_card_name', month: I18n.l(@cur_month.to_date, format: :attendance_year_month)) %></div>
+      <div class="attendance-box-main main">
+        <%= render 'time_card_nav' %>
+        <%= render template: "gws/gkan/attendance/time_cards/#{@item.view_type}/_time_card", locals: { punchable: true } %>
+      </div>
+    </div>
+  <% else %>
+    <%= render "no_time_card/today" %>
+    <div class="attendance-box monthly">
+      <div class="attendance-box-title"><%= t('gws/attendance.formats.time_card_name', month: I18n.l(@cur_month.to_date, format: :attendance_year_month)) %></div>
+      <div class="attendance-box-main main">
+        <%= render 'time_card_nav' %>
+        <p><%= t('gws/attendance.no_time_cards') %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= jquery do %>
+  var attendance = new Gws_Gkan_Attendance(
+    '.gws-attendance',
+    {
+      now: <%== Time.zone.now.rfc2822.to_json %>,
+      editable: <%== (@model.allowed?(:edit, @cur_user, site: @cur_site) && @item && @item.unlocked?).to_json %>,
+      indexUrl: <%== url_for(action: :index, year_month: ':year_month').to_json %>,
+      punchUrl: <%== "#{url_for(action: :index)}/:type".to_json %>,
+      timeUrl: <%== url_for(action: :time, day: ':day', type: ':type').to_json %>,
+      memoUrl: <%== url_for(action: :memo, day: ':day').to_json %>
+    }
+  );
+<% end %>

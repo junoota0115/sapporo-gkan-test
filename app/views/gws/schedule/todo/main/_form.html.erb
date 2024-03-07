@@ -1,0 +1,38 @@
+<%= jquery do %>
+    Gws_Schedule_Plan.renderForm();
+<% end %>
+
+<%= hidden_field_tag 'calendar[path]', params.dig(:calendar, :path) %>
+<%= hidden_field_tag 'calendar[view]', params.dig(:calendar, :view) %>
+<%= hidden_field_tag 'calendar[viewFormat]', params.dig(:calendar, :viewFormat) %>
+<%= hidden_field_tag 'calendar[viewTodo]', params.dig(:calendar, :viewTodo) %>
+<%= hidden_field_tag 'calendar[viewAttendance]', params.dig(:calendar, :viewAttendance) %>
+
+<dl class="see gws-schedule-plan">
+  <dt><%= @model.t :name %><%= @model.tt :name %></dt>
+  <dd><%= f.text_field :name, autofocus: pc_browser? %></dd>
+
+  <dt><%= @model.t :term %><%= @model.tt :term %></dt>
+  <dd>
+    <div class="gws-schedule-start-end-combo">
+      <div class="datetimes-field">
+        <%= f.ss_datetime_field :start_at, { max_date: @cur_site.schedule_max_at }, { class: 'start', type: 'hidden', data: { sync_with: "item[end_at]" } } %>
+        <%= f.ss_datetime_field :end_at, { max_date: @cur_site.schedule_max_at }, { class: 'end' } %>
+      </div>
+      <div class="dates-field hide">
+        <%= f.ss_date_field :start_on, { max_date: @cur_site.schedule_max_at }, { class: 'start', type: 'hidden', data: { sync_with: "item[end_on]" } } %>
+        <%= f.ss_date_field :end_on, { max_date: @cur_site.schedule_max_at }, { class: 'end' } %>
+      </div>
+      <div class="date-options mt-3">
+        <label for="item_allday"><%= f.check_box :allday, {}, 'allday', '' %> <%= @item.t :allday %></label>
+      </div>
+    </div>
+  </dd>
+
+  <dt><%= @model.t :priority %><%= @model.tt :priority %></dt>
+  <dd><%= f.select :priority, @item.priority_options, include_blank: " " %></dd>
+
+  <dt><%= @model.t :color %><%= @model.tt :color %></dt>
+  <dd><%= f.ss_color_picker :color %></dd>
+</dl>
+

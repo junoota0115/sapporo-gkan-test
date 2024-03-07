@@ -1,0 +1,318 @@
+ja:
+  chorg:
+    revision: 組織変更
+    changeset: 組織変更内容
+    entity_log:
+      headers:
+        - 区分1
+        - 区分2
+        - タイトル
+        - ID
+        - 操作
+        - 確認URL
+        - 管理URL
+    views:
+      revisions/edit: &revisions_edit
+        add: 新設
+        move: 移動
+        unify: 統合
+        division: 分割
+        delete: 廃止
+        add_description: グループ名
+        move_before: 移動元
+        move_after: 移動先
+        unify_before: 統合元
+        unify_after: 統合先
+        division_before: 分割元
+        division_after: 分割先
+        delete_description: グループ名
+      revisions/show:
+        <<: *revisions_edit
+      run/confirmation:
+        test:
+          header: テスト実行しますが、よろしいですか？
+          run_button: テスト実行
+        main:
+          header: 本番実行しますが、よろしいですか？
+          run_button: 本番実行
+        run_options: 実行オプション
+      add_changesets: &group_props
+        name: グループ名
+        order: 表示順
+        contact_group_name: 担当部署
+        contact_tel: 電話番号
+        contact_fax: ファックス番号
+        contact_email: メールアドレス
+        contact_link_url: リンクURL
+        contact_link_name: リンク名
+        ldap_dn: DN
+      move_changesets:
+        before_move: 移動元
+        after_move: 移動先
+        select_group: 移動グループを選択する
+        <<: *group_props
+      unify_changesets:
+        before_unify: 統合元
+        after_unify: 統合先
+        select_group: 統合グループを選択する
+        <<: *group_props
+      division_changesets:
+        before_division: 分割元
+        after_division:
+          zero: 分割先
+          one: "%{count} 番目の分割先"
+          other: "%{count} 番目の分割先"
+        select_group: 分割グループを選択する
+        <<: *group_props
+      delete_changesets:
+        select_group: 廃止グループを選択する
+        <<: *group_props
+      chorg/entity_log:
+        name: 名前
+        id: ID
+        operation: 変更
+        options:
+          operation:
+            creates: 新規作成
+            changes: 更新
+            deletes: 削除
+        detail: 詳細
+        more: もっと見る
+        close: 閉じる
+    labels:
+      all_sites: 全てのサイト
+    menus:
+      revisions:
+        add: 新設を追加する
+        move: 移動を追加する
+        unify: 統合を追加する
+        division: 分割を追加する
+        delete: 廃止を追加する
+        test_execute: テスト実行する
+        production_execute: 本番実行する
+        execute_results: 実行結果を閲覧する
+    messages:
+      job_started: 組織変更処理を開始しました。
+      job_reserved: 組織変更処理を予約しました。
+      test_run: テスト実行
+      import_revision_file_confirmation: 組織変更操作をCSVからインポートします。\n既に操作が登録されている場合は削除されます。\n実行してよろしいですか？
+      import_changesets_notice: CSV に含まれる変更内容は常に追加されます。CSV をインポートしても既存の変更内容は何ら変更しません。
+    options:
+      changeset_type:
+        add: 新設
+        move: 移動
+        unify: 統合
+        division: 分割
+        delete: 廃止
+      delete_method:
+        disable_if_possible: 無効にし、後で回復できるようにする
+        always_delete: 常に物理削除する
+    buttons:
+      reset_after_move: 移動先の再設定
+      reset_after_unify: 統合先の再設定
+      reset_after_division: 分割先の再設定
+      save_and_import_changesets: 保存して変更内容をCSVからインポート
+    confirm:
+      reset_after_move: 移動先を再設定してよろしいですか？
+      reset_after_unify: 統合先を再設定してよろしいですか？
+      reset_after_division: 分割先を再設定してよろしいですか？
+    import:
+      changeset:
+        id: ID
+        type: 操作
+        source: 操作元グループ名
+        destination: 操作先グループ名
+        order: 表示順
+        contact_tel: 電話番号
+        contact_fax: ファックス番号
+        contact_email: メールアドレス
+        contact_link_url: リンクURL
+        contact_link_name: リンク名
+        ldap_dn: DN
+        nth_destination_name: "操作先%{dest_seq}_グループ名"
+        nth_destination_order: "操作先%{dest_seq}_表示順"
+        nth_destination_ldap_dn: "操作先%{dest_seq}_DN"
+        nth_destination_contact_main_state: "操作先%{dest_seq}_連絡先%{contact_seq}_主"
+        nth_destination_contact_name: "操作先%{dest_seq}_連絡先%{contact_seq}_識別名"
+        nth_destination_contact_contact_group_name: "操作先%{dest_seq}_連絡先%{contact_seq}_担当部署"
+        nth_destination_contact_contact_tel: "操作先%{dest_seq}_連絡先%{contact_seq}_電話番号"
+        nth_destination_contact_contact_fax: "操作先%{dest_seq}_連絡先%{contact_seq}_ファックス番号"
+        nth_destination_contact_contact_email: "操作先%{dest_seq}_連絡先%{contact_seq}_メールアドレス"
+        nth_destination_contact_contact_link_url: "操作先%{dest_seq}_連絡先%{contact_seq}_リンクURL"
+        nth_destination_contact_contact_link_name: "操作先%{dest_seq}_連絡先%{contact_seq}_リンク名"
+    errors:
+      template:
+        body_html: |-
+          選択されたグループ内の以下の連絡先の異動先が見つかりません。<br>
+          以下の連絡先は組織変更を実行するとページとの連携が外れ、以下の連絡先を使用中のページの連絡先部分が非表示となります。<br>
+          連絡先を単一に統合されたい場合は編集画面から「主へ統合」を有効にしてください。<br>
+          既存の連絡先をそれぞれ別の連絡先へ設定する場合は既存の連絡先に上書きしてください。
+
+  modules:
+    chorg: 組織変更
+    addons:
+      chorg/entity_log: 変更履歴
+
+  cms_role:
+    edit_chorg_revisions: 組織変更の管理
+
+  job:
+    models:
+      chorg/test_runner: 組織変更/テスト実行
+      chorg/main_runner: 組織変更/本番実行
+      chorg/changeset_import_job: 組織変更/変更内容インポート
+
+  mongoid:
+    models:
+      chorg/changeset: 変更内容
+      chorg/revision: リビジョン
+      chorg/run_params: 組織変更実行オプション
+    errors:
+      models:
+        chorg/run_params:
+          job_mode_is_not_service: ジョブサービスの実行モードがserviceではないため、予約実行できません。システム管理者にお問い合わせください。
+        chorg/changeset:
+          blank_contact_group_name: の連絡先に識別名が空欄のものがあります。
+          duplicate_contact_group_name: "の連絡先に識別名 \"%{name}\" が重複しています。"
+    attributes:
+      chorg/model/revision:
+        name: 名前
+        job_ids: ジョブ
+        user_csv_file_id: ユーザーCSVファイル
+        revision_csv_file_id: 組織変更操作CSV
+        delete_method: 削除方法
+      chorg/model/changeset:
+        type: 種別
+        sources: 移動元
+        destinations: 移動先
+      chorg/run_params:
+        add_newly_created_group_to_site: 新規作成グループをサイトに追加
+        forced_overwrite_html: |-
+          連絡先情報を強制的に変更する<br>
+          通常の組織変更では「グループと連動しない」に設定しているページの連絡先は変更しません。<br>
+          このオプションをチェックすると、「グループと連動しない」に設定しているページの連絡先を変更します。
+        reservation: 予約実行
+      chorg/revision:
+        content_csv_file_id: コンテンツCSVファイル
+        target_site_ids: 対象サイト
+
+  tooltip:
+    chorg/model/revision:
+      name:
+        - 組織変更の名称を入力します。
+      user_csv_file_id:
+        - 組織変更実行後にユーザーの異動を行うためのユーザーCSVファイルを選択します。
+        - ユーザーCSVには異動後のグループ名や役職を設定してください。
+        -
+        - ファイルを選択しない場合、組織変更実行後にユーザーは異動しませんので手動でユーザーを異動させてください。
+      revision_csv_file_id:
+        - 組織変更操作（新設、移動、統合、分割、廃止）を登録する為のCSVファイルを選択します。
+        - CSVファイルから登録を行う場合、既に登録されている操作は削除されます。
+        - ""
+        - 「サンプルCSVをダウンロード」より、自治体サンプルサイトの組織変更操作例をダウンロードできます。
+        - 内容を修正してインポートしてください。
+      delete_method:
+        - ユーザーとグループの削除方法を選択します。
+        - 「無効にし、後で回復できるようにする」を選択すると、ユーザーとグループは無効状態になって残ります。
+        - 「常に物理削除する」を選択すると、ユーザーとグループは完全に削除されます。
+    chorg/revision:
+      content_csv_file_id:
+        - 組織変更実行後にパーツ、レイアウト、ページ、フォルダーの異動を行うためのコンテンツCSVファイルを選択します。
+        - コンテンツCSVには異動後のグループ名などを設定してください。
+      target_site_ids:
+        - 組織変更の対象となるサイトを選択します。
+        - 指定がない場合は全サイトが対象となります。
+    chorg/run_params:
+      reservation:
+        - 実行する時間を予約できます。
+    chorg:
+      views:
+        add_changesets:
+          name:
+            - 新設するのグループ名を入力します。
+          order:
+            - グループ画面での表示順を入力します。
+            - 数字が小さいほど上位に表示されます。
+          contact_group_name:
+            - 新設するグループの担当部署を入力します。
+          contact_tel:
+            - 新設するグループの電話番号を入力します。
+          contact_fax:
+            - 新設するグループのファックス番号を入力します。
+          contact_email:
+            - 新設するグループのメールアドレスを入力します。
+          contact_link_url:
+            - 新設するグループのリンクURLを入力します。
+          contact_link_name:
+            - 新設するグループのリンク名を入力します。
+          ldap_dn:
+            - LDAPを利用している場合は新設するグループの識別子(DN)を入力します。
+        delete_changesets:
+          name:
+            - 廃止するグループ名を選択します。
+        division_changesets:
+          name:
+            - 分割後ののグループ名を入力します。
+          order:
+            - グループ画面での表示順を入力します。
+            - 数字が小さいほど上位に表示されます。
+          contact_group_name:
+            - 分割後のグループの担当部署を入力します。
+          contact_tel:
+            - 分割後のグループの電話番号を入力します。
+          contact_fax:
+            - 分割後のグループのファックス番号を入力します。
+          contact_email:
+            - 分割後のグループのメールアドレスを入力します。
+          contact_link_url:
+            - 分割後のグループのリンクURLを入力します。
+          contact_link_name:
+            - 分割後のグループのリンク名を入力します。
+          ldap_dn:
+            - LDAPを利用している場合は分割後のグループの識別子(DN)を入力します。
+          before_name:
+            - 分割元のグループ名を選択します。
+        move_changesets:
+          name:
+            - 移動先のグループ名を入力します。
+          order:
+            - グループ画面での表示順を入力します。
+            - 数字が小さいほど上位に表示されます。
+          contact_group_name:
+            - 移動先グループの担当部署を入力します。
+          contact_tel:
+            - 移動先グループの電話番号を入力します。
+          contact_fax:
+            - 移動先グループのファックス番号を入力します。
+          contact_email:
+            - 移動先グループのメールアドレスを入力します。
+          contact_link_url:
+            - 移動先グループのリンクURLを入力します。
+          contact_link_name:
+            - 移動先グループのリンク名を入力します。
+          ldap_dn:
+            - LDAPを利用している場合は移動先グループの識別子(DN)を入力します。
+          before_name:
+            - 移動元のグループ名を選択します。
+        unify_changesets:
+          name:
+            - 統合先のグループ名を入力します。
+          order:
+            - グループ画面での表示順を入力します。
+            - 数字が小さいほど上位に表示されます。
+          contact_group_name:
+            - 統合先グループの担当部署を入力します。
+          contact_tel:
+            - 統合先グループの電話番号を入力します。
+          contact_fax:
+            - 統合先グループのファックス番号を入力します。
+          contact_email:
+            - 統合先グループのメールアドレスを入力します。
+          contact_link_url:
+            - 統合先グループのリンクURLを入力します。
+          contact_link_name:
+            - 統合先グループのリンク名を入力します。
+          ldap_dn:
+            - LDAPを利用している場合は統合先グループの識別子(DN)を入力します。
+          before_name:
+            - 統合元のグループ名を選択します。
