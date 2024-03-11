@@ -293,6 +293,7 @@ en:
       gws/addon/memo/message_sort:
         gws_memo_message_sort: Message order
       gws/memo/notice_user_setting:
+        notice_gkan_attendance_user_setting: Attendance
         notice_schedule_user_setting: Schedule
         notice_todo_user_setting: ToDo
         notice_workload_user_setting: Workload

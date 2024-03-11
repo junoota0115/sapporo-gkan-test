@@ -572,3 +572,33 @@ ja:
     use_other_gws_gkan_manage_payments: 決済データ出力の利用（全て）
     # settings
     use_gws_gkan_admin_settings: 設定の管理
+
+    gws_notification:
+    gws/gkan/attendance/overtime_file:
+      request: "[時間外申請]「%{name}」の承認申請が届きました。"
+      approve: "[時間外申請]「%{name}」の最終承認が完了しました。"
+      remand: "[時間外申請]「%{name}」の承認申請が差し戻されました。"
+      circular: "[時間外申請]「%{name}」が届きました。"
+      comment: "[時間外申請]「%{name}」にコメントがありました。"
+    gws/gkan/attendance/leave_file:
+      request: "[休暇申請]「%{name}」の承認申請が届きました。"
+      approve: "[休暇申請]「%{name}」の最終承認が完了しました。"
+      remand: "[休暇申請]「%{name}」の承認申請が差し戻されました。"
+      circular: "[休暇申請]「%{name}」が届きました。"
+      comment: "[休暇申請]「%{name}」にコメントがありました。"
+    gws/gkan/attendance/holiday_work_file:
+      request: "[休出申請]「%{name}」の承認申請が届きました。"
+      approve: "[休出申請]「%{name}」の最終承認が完了しました。"
+      remand: "[休出申請]「%{name}」の承認申請が差し戻されました。"
+      circular: "[休出申請]「%{name}」が届きました。"
+      comment: "[休出申請]「%{name}」にコメントがありました。"
+      gws/gkan/attendance/time_card:
+      # 何か追加
+    gws/affair/compensatory_file:
+      subject: "[時間外申請] 時間外申請「%{name}」振替の有効期限が迫っています。"
+      text: "%{text}"
+      mail_text: |
+        %{subject}
+
+        %{text}
+
