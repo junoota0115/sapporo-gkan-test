@@ -65,6 +65,7 @@ module Gws::Memo::NoticeUserSetting
     when "gws/notice/post" then 'announcement'
     when "gws/survey/form", "gws/survey/file" then 'survey'
     when "gws/monitor/topic", "gws/monitor/post" then 'monitor'
+    when "gws/gkan/attendance/overtime_file","gws/gkan/attendance/leave_file","gws/gkan/attendance/holiday_work_file","gws/gkan/attendance/time_card","compensatory_file" then 'attendance'
     end
   end
 end
